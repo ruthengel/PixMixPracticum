@@ -120,7 +120,7 @@ class CollageStore {
       console.error('שגיאה בהוספה:', error);
     }
   }
-  
+
   deleteCollage = async (collageId: string, token: string | null) => {
     try {
       const res = await axios.delete(`https://localhost:7231/api/Collage/${collageId}`,

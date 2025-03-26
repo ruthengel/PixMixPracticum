@@ -11,6 +11,7 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 const UserCollages = () => {
+    
     const dispatch = useDispatch();
     const collages = useSelector((state: RootState) => state.collages.collages);
     const userId = useSelector((state: RootState) => state.token.user?.userId);
@@ -46,14 +47,22 @@ const UserCollages = () => {
         if (collages.length > 0) {
             fetchUrls();
         }
-    }, [collages, token]);
+    }, [collages.length, token]);
 
     const handleDelete = async (collageId: string, name: string) => {
         try {
-            const res1 = await CollageStore.deleteCollage(collageId, token);
-            const res2 = await CollageStore.deleteCollageFromS3(name, token);
-            if (res1 && res2)
-                dispatch(removeCollage(collageId));
+            dispatch(removeCollage(collageId))
+            await CollageStore.deleteCollage(collageId, token)
+            await CollageStore.deleteCollageFromS3(name, token)
+            // const res1 = await CollageStore.deleteCollage(collageId, token);
+            // const res2 = await CollageStore.deleteCollageFromS3(name, token);
+            // if (res1 && res2)
+            //     dispatch(removeCollage(collageId));
+            // setImageUrls((prevUrls) => {
+            //     const newUrls = { ...prevUrls };
+            //     delete newUrls[collageId]; 
+            //     return newUrls;
+            // });
         } catch (error) {
             console.error("Failed to delete collage:", error);
         }
