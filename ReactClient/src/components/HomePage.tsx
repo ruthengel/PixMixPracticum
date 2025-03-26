@@ -1,6 +1,6 @@
 import { Box, Button, Typography, Container, Grid, Card, CardContent, Dialog, DialogContent, IconButton, Link } from "@mui/material";
 import { styled } from "@mui/system";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
 import { useSelector } from "react-redux";
@@ -43,6 +43,21 @@ const HomePage = () => {
     const token = useSelector((state: any) => state.token.token);
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
+    const [showBackground, setShowBackground] = useState(false);
+
+    useEffect(() => {
+        document.body.classList.add("home-background");
+
+        const timer = setTimeout(() => {
+            document.body.classList.remove("home-background");
+            setShowBackground(true)
+        }, 2000);
+
+        return () => {
+            clearTimeout(timer);
+            document.body.classList.remove("home-background");
+        };
+    }, []);
 
     const handleOpen = () => {
         if (token)
@@ -51,8 +66,9 @@ const HomePage = () => {
             setOpen(true)
     }
 
-    return (
-        <Box >
+    return showBackground && (
+
+        < Box >
             <Container maxWidth="md" sx={{ width: '100vw', height: '100vh', marginTop: 10, textAlign: "center", py: 10 }}>
                 <Typography variant="h1" gutterBottom sx={{ fontSize: "6rem" }}>
                     ?מה תרצו <GradientText>לעצב </GradientText>היום
@@ -63,8 +79,8 @@ const HomePage = () => {
                 <StyledButton onClick={handleOpen}>צור עיצוב</StyledButton>
             </Container>
 
-            <Container maxWidth="lg" sx={{ py: 5, marginTop: -40, marginRight: 100 }}>
-                <Typography variant="h4" fontWeight="700">התאמה מושלמת לכולם</Typography>
+            <Container maxWidth="lg" sx={{ py: 5, marginTop: -40, marginRight: 70 }}>
+                <Typography variant="h4" fontWeight="700" sx={{marginRight:-9}}>התאמה מושלמת לכולם</Typography>
                 <Grid container spacing={-13} marginTop={6} >
                     <Grid item xs={12} md={4} sx={{ display: 'flex', flexDirection: 'column' }} >
                         <AnimatedCard sx={{ display: 'flex', flexDirection: 'column', height: '250px', width: '280px', backgroundColor: '#e7dbff', border: '1px solid #d6c2ff' }} >

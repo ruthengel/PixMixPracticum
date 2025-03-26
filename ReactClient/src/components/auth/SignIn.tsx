@@ -1,5 +1,5 @@
 import { Box, Button, IconButton, Modal, TextField } from "@mui/material";
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import SendIcon from "@mui/icons-material/Send";
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
@@ -15,6 +15,18 @@ const SignIn = () => {
     const [signin, setSignin] = useState(false)
     const emailRef = useRef<HTMLInputElement>(null)
     const passswordRef = useRef<HTMLInputElement>(null)
+    const [showBackground, setShowBackground] = useState(false);
+
+    useEffect(() => {
+
+        const timer = setTimeout(() => {
+            setShowBackground(true)
+        }, 2000);
+
+        return () => {
+            clearTimeout(timer);
+        };
+    }, []);
 
     const handleSubmit = async (e: FormEvent) => {
         console.log();
@@ -44,8 +56,8 @@ const SignIn = () => {
         }
     };
 
-    return (<>
-        <Button sx={{ position: "fixed", top: 15, left: 20, zIndex: 1350, color: "white", background: "linear-gradient(270deg, #00A0A8, #7D2AE8)", backgroundClip: "border-box", padding: "10px 20px", whiteSpace: "nowrap", "&:hover": { background: "linear-gradient(270deg, #7D2AE8, #00A0A8)", color: "white", transition: "background-color 0.3s ease, color 0.3s ease" } }} variant="contained" size="medium" onClick={() => { setOpen(true); setSignin(true); }}>Sign in</Button>
+    return showBackground && (<>
+        <Button sx={{ position: "fixed", top: 15, left: 20, zIndex: 1350, color: "white", background: "linear-gradient(270deg, #7D2AE8, #00A0A8)", backgroundClip: "border-box", padding: "10px 20px", whiteSpace: "nowrap", "&:hover": { background: "linear-gradient(270deg, #00A0A8,  #7D2AE8)", color: "white", transition: "background-color 0.3s ease, color 0.3s ease" } }} variant="contained" size="medium" onClick={() => { setOpen(true); setSignin(true); }}>Sign in</Button>
         {signin && (
             <Modal open={open} onClose={() => setOpen(false)} aria-labelledby="login-modal-title" aria-describedby="login-modal-description">
                 <Box sx={{ width: 500, bgcolor: "background.paper", p: 3, borderRadius: 2, boxShadow: 24, margin: "auto", mt: 5 }}>

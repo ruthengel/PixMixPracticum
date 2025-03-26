@@ -1,6 +1,6 @@
 import { Button, Modal, Box, IconButton, TextField } from "@mui/material";
 import axios from "axios";
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import SendIcon from "@mui/icons-material/Send";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch } from "react-redux";
@@ -13,6 +13,18 @@ const SignUp = () => {
     const nameRef = useRef<HTMLInputElement>(null)
     const emailRef = useRef<HTMLInputElement>(null)
     const passswordRef = useRef<HTMLInputElement>(null)
+    const [showBackground, setShowBackground] = useState(false);
+
+    useEffect(() => {
+
+        const timer = setTimeout(() => {
+            setShowBackground(true)
+        }, 2000);
+
+        return () => {
+            clearTimeout(timer);
+        };
+    }, []);
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
@@ -39,7 +51,7 @@ const SignUp = () => {
             }
         }
     };
-    return (<>
+    return showBackground && (<>
         <Button sx={{ position: "fixed", top: 15, left: 125, zIndex: 1350, color: "transparent", border: "2px solid transparent", background: "linear-gradient(270deg, #00A0A8, #7D2AE8)", backgroundClip: "text", padding: "8px 16px", "&:hover": { border: "2px solid transparent", background: "linear-gradient(270deg,#7D2AE8, #00A0A8 )", color: "transparent", backgroundClip: "text", transition: "background-color 0.3s ease, color 0.3s ease" } }} variant="contained" size="medium" onClick={() => { setOpen(true); setSignup(true); }}>Sign up</Button>
         {signup && (
             <Modal open={open} onClose={() => setOpen(false)} aria-labelledby="login-modal-title" aria-describedby="login-modal-description">
