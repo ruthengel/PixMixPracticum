@@ -54,7 +54,7 @@ const NavBar = () => {
                     </StyleListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
-                    <StyleListItemButton component={Link} to='Start'>
+                    <StyleListItemButton component={Link} to='start'>
                         <ListItemText primary='start' sx={{ whiteSpace: 'nowrap', mr: 1 }} />
                     </StyleListItemButton>
                 </ListItem>

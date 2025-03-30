@@ -17,7 +17,7 @@ import memo1 from "../../assets/backgrounds/memo1.png";
 import memo2 from "../../assets/backgrounds/memo2.png";
 import memo3 from "../../assets/backgrounds/memo3.png";
 import empty from "../../assets/backgrounds/empty.png";
-import CloseIcon from "@mui/icons-material/Close";
+import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import { useNavigate } from "react-router-dom";
 
 const BackgroundSelector = () => {
@@ -63,14 +63,13 @@ const BackgroundSelector = () => {
                         sx={{ width: 70, height: 50, objectFit: "cover", borderRadius: 1, cursor: "pointer", border: index === currentIndex ? "3px solid grey" : "2px solid #ccc", opacity: index === currentIndex ? 1 : 0.7, transition: "border 0.2s, opacity 0.2s" }} />))}
             </Box>
 
-            <Dialog open={open} onClose={() => setOpen(false)} sx={{ '& .MuiDialog-paper': { width: '600px', height: '100px', borderRadius: '12px' } }}>
-                <IconButton sx={{ position: "absolute", top: 10, right: 10, color: "black" }} onClick={() => setOpen(false)}>
-                    <CloseIcon />
-                </IconButton>
-                <DialogContent sx={{ textAlign: 'center', marginTop: 3 }} >
+            <Dialog open={open} onClose={() => setOpen(false)} sx={{ '& .MuiDialog-paper': { width: '600px', height: '100px', borderRadius: '12px' } }}>              
+                <DialogContent sx={{ textAlign: 'center', marginTop: 0 }} >
                     <Typography>.בחר את התבנית בה תרצה לעצב את הקולא'ז שלך</Typography>
                 </DialogContent>
-
+                <IconButton sx={{ position: "absolute", top: 50, right: 280, color: "black" }} onClick={() => setOpen(false)}>
+                    <ThumbUpAltIcon />
+                </IconButton>
             </Dialog>
         </Box>
     );

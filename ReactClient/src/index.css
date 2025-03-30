@@ -87,9 +87,7 @@ html, body {
   margin: 0;
   padding: 0;
   background: white;
-  /* background: linear-gradient(270deg, rgb(0, 196, 204), rgb(90, 50, 250), rgb(125, 42, 232));; */
-  /* background-size: cover; 
-  background-position: center;   */
+
 }
 
 .home-background {
@@ -98,7 +96,7 @@ html, body {
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  animation: imageAnimation 2s ease-out forwards;;
+  animation: imageAnimation 2s ease-out forwards;
 }
 
 

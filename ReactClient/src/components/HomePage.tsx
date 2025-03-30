@@ -2,9 +2,10 @@ import { Box, Button, Typography, Container, Grid, Card, CardContent, Dialog, Di
 import { styled } from "@mui/system";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import CloseIcon from "@mui/icons-material/Close";
+import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import { useSelector } from "react-redux";
 import { EmojiEvents } from "@mui/icons-material";
+import { RootState } from "./stores/Store";
 
 
 const GradientText = styled("span")({
@@ -40,14 +41,14 @@ const AnimatedCard = styled(Card)({
 });
 
 const HomePage = () => {
-    const token = useSelector((state: any) => state.token.token);
+    const token = useSelector((state: RootState) => state.token.token);
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const [showBackground, setShowBackground] = useState(false);
 
+
     useEffect(() => {
         document.body.classList.add("home-background");
-
         const timer = setTimeout(() => {
             document.body.classList.remove("home-background");
             setShowBackground(true)
@@ -57,11 +58,13 @@ const HomePage = () => {
             clearTimeout(timer);
             document.body.classList.remove("home-background");
         };
-    }, []);
+
+
+    }, [token]);
 
     const handleOpen = () => {
         if (token)
-            navigate('Start')
+            navigate('start')
         else
             setOpen(true)
     }
@@ -80,7 +83,7 @@ const HomePage = () => {
             </Container>
 
             <Container maxWidth="lg" sx={{ py: 5, marginTop: -40, marginRight: 70 }}>
-                <Typography variant="h4" fontWeight="700" sx={{marginRight:-9}}>התאמה מושלמת לכולם</Typography>
+                <Typography variant="h4" fontWeight="700" sx={{ marginRight: -9 }}>התאמה מושלמת לכולם</Typography>
                 <Grid container spacing={-13} marginTop={6} >
                     <Grid item xs={12} md={4} sx={{ display: 'flex', flexDirection: 'column' }} >
                         <AnimatedCard sx={{ display: 'flex', flexDirection: 'column', height: '250px', width: '280px', backgroundColor: '#e7dbff', border: '1px solid #d6c2ff' }} >
@@ -91,7 +94,7 @@ const HomePage = () => {
                                 <Typography>PixMix Free</Typography>
                                 <Typography mt={2}>.לעיצוב או לעבודה בכל נושא</Typography>
                             </CardContent>
-                            <Button sx={{ mt: 6.5, right: 0, borderRadius: '8px', whiteSpace: 'nowrap', backgroundColor: "#8B3DFF", color: "white", height: '40px', fontWeight: "bold", padding: '8px 120px' }}>התחל לעצב</Button>
+                            <Button sx={{ mt: 6.5, right: 0, borderRadius: '8px', whiteSpace: 'nowrap', backgroundColor: "#8B3DFF", color: "white", height: '40px', fontWeight: "bold", padding: '8px 120px', "&:hover": { backgroundColor: "#7731D8", } }}>התחל לעצב</Button>
 
                         </AnimatedCard>
                     </Grid>
@@ -105,7 +108,7 @@ const HomePage = () => {
                                 <Typography>PixMix Pro</Typography>
                                 <Typography mt={2}>.להרחבת המותג או הפרויקטים החשובים שלכם באמצעות תכונות פרימיום</Typography>
                             </CardContent>
-                            <Button sx={{ mt: 3.5, right: 1, borderRadius: '8px', whiteSpace: 'nowrap', backgroundColor: "#8B3DFF", color: "white", height: '40px', fontWeight: "bold", padding: '8px 120px' }}>התחל לעצב</Button>
+                            <Button sx={{ mt: 3.5, right: 1, borderRadius: '8px', whiteSpace: 'nowrap', backgroundColor: "#8B3DFF", color: "white", height: '40px', fontWeight: "bold", padding: '8px 120px', "&:hover": { backgroundColor: "#7731D8", }, }}>התחל לעצב</Button>
                         </AnimatedCard>
                     </Grid>
 
@@ -114,7 +117,7 @@ const HomePage = () => {
                             <CardContent sx={{ textAlign: 'right', flex: 1, mt: 6 }}>
                                 <Typography>PixMix</Typography>
                                 <Typography mt={2}>כנסו אלינו ולא תפסידו</Typography>
-                                <Button sx={{ mt: 13, right: 21, borderRadius: '8px', whiteSpace: 'nowrap', backgroundColor: "#8B3DFF", color: "white", height: '40px', fontWeight: "bold", padding: '8px 110px' }}>התחל לעצב</Button>
+                                <Button sx={{ mt: 13, right: 21, borderRadius: '8px', whiteSpace: 'nowrap', backgroundColor: "#8B3DFF", color: "white", height: '40px', fontWeight: "bold", padding: '8px 110px', "&:hover": { backgroundColor: "#7731D8", }, }}>התחל לעצב</Button>
                             </CardContent>
                         </AnimatedCard>
                     </Grid>
@@ -134,7 +137,7 @@ const HomePage = () => {
                     <Typography mt={1} fontWeight="700" variant="h4">AI לקדם את היצירתיות בעזרת </Typography>
                     <Typography mt={2}>.AI הגדירו מחדש את האופן שבו אתם יוצרים בעזרת חבילת הכלים שלנו המופעלים על ידי</Typography>
                     <Typography >בעזרת 'מדיה קסם' או שנו את התמונות שלכם בעזרת 'עריכת קסם' ועוד.ד AI צרו תמונות</Typography>
-                    <Button onClick={handleOpen} sx={{ mt: 3, borderRadius: '8px', backgroundColor: "#8B3DFF", color: "white", height: '40px', fontWeight: "bold", padding: '8px 16px' }}
+                    <Button onClick={handleOpen} sx={{ mt: 3, borderRadius: '8px', backgroundColor: "#8B3DFF", color: "white", height: '40px', fontWeight: "bold", padding: '8px 16px', "&:hover": { backgroundColor: "#7731D8", }, }}
                     >התחל לעצב</Button>
                 </Box>
             </Box>
@@ -149,7 +152,7 @@ const HomePage = () => {
                     <Box sx={{}}>
                         <Button sx={{ marginRight: 2, mt: 3, borderRadius: '8px', backgroundColor: "white", color: "black", border: '0.5px solid #394C6026', height: '40px', fontWeight: "bold", padding: '8px 16px' }}
                         >התחלת תקופת נסיון חינם עבור צוותים </Button>
-                        <Button onClick={handleOpen} sx={{ mt: 3, borderRadius: '8px', backgroundColor: "#8B3DFF", color: "white", height: '40px', fontWeight: "bold", padding: '8px 16px' }}
+                        <Button onClick={handleOpen} sx={{ mt: 3, borderRadius: '8px', backgroundColor: "#8B3DFF", color: "white", height: '40px', fontWeight: "bold", padding: '8px 16px', "&:hover": { backgroundColor: "#7731D8", }, }}
                         >התחל לעצב</Button>
                     </Box>
 
@@ -178,7 +181,7 @@ const HomePage = () => {
                     <Typography mt={1} fontWeight="700" variant="h6">תזרימי אישורים יפים</Typography>
                     <Typography>.שליטה קלה בהרשאות אינדיווידואליות, הקצאת משימות ושיתוף עבודות</Typography>
                     <Box sx={{}}>
-                        <Button sx={{ mt: 3, borderRadius: '8px', backgroundColor: "#8B3DFF", color: "white", height: '40px', fontWeight: "bold", padding: '8px 16px' }}
+                        <Button sx={{ mt: 3, borderRadius: '8px', backgroundColor: "#8B3DFF", color: "white", height: '40px', fontWeight: "bold", padding: '8px 16px', "&:hover": { backgroundColor: "#7731D8", } }}
                         >PixMix-לגלות את הצוותים ב</Button>
                     </Box>
 
@@ -191,26 +194,25 @@ const HomePage = () => {
                 </Box>
             </Box>
 
-            <Dialog open={open} onClose={() => setOpen(false)} sx={{ '& .MuiDialog-paper': { width: '600px', height: '350px', borderRadius: '12px' } }}>
-                <IconButton sx={{ position: "absolute", top: 10, right: 10, color: "black" }} onClick={() => setOpen(false)}>
-                    <CloseIcon />
-                </IconButton>
-                <DialogContent>
+            <Dialog open={open} onClose={() => setOpen(false)} sx={{ '& .MuiDialog-paper': { width: '600px', height: '150px', borderRadius: '12px' } }}>
+                <DialogContent sx={{ textAlign: 'center' }}>
                     <p>PixMixברוך הבא ל</p>
                     <p>כדי להמשיך, אנא התחבר או הירשם אם אין לך חשבון.</p>
                 </DialogContent>
-
+                <IconButton sx={{ position: "absolute", top: 100, right: 280, color: "black" }} onClick={() => setOpen(false)}>
+                    <ThumbUpAltIcon />
+                </IconButton>
             </Dialog>
 
             <Box sx={{ width: '100%', marginTop: 10, backgroundColor: 'white', padding: '20px', textAlign: 'center', borderTop: '1px solid #ddd', }}           >
                 <Typography variant="body2" color="text.secondary">
-                    {new Date().getFullYear()}   | RE | &copy;
+                    2052 | RE | &copy;
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    <Link href="#" underline="none" color="inherit">
+                    <Link href="#" underline="none" color="inherit" sx={{ "&:hover": { color: "#7731D8", } }} >
                         תנאי שימוש
                     </Link> |
-                    <Link href="#" underline="none" color="inherit"> פרטיות
+                    <Link href="#" underline="none" color="inherit" sx={{ "&:hover": { color: "#7731D8", } }} > פרטיות
                     </Link>
                 </Typography>
             </Box>

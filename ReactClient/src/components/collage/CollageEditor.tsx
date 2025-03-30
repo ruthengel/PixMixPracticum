@@ -147,19 +147,18 @@ const CollageEditor = () => {
     const activeObject = canvas.getActiveObject();
     if (!activeObject || activeObject.type !== "image") return;
 
-    // יצירת ריבוע חיתוך בגבולות קטנים יותר מהתמונה
     const cropRect = new fabric.Rect({
       left: activeObject.left! + 20,
       top: activeObject.top! + 20,
       width: (activeObject.width! * activeObject.scaleX!) - 40,
       height: (activeObject.height! * activeObject.scaleY!) - 40,
-      fill: "rgba(255, 255, 255, 0.3)", // חצי שקוף
+      fill: "rgba(255, 255, 255, 0.3)",
       stroke: "red",
       strokeWidth: 2,
       selectable: true,
       hasControls: true,
       hasBorders: true,
-      lockRotation: true, // לא מאפשר סיבוב
+      lockRotation: true, 
     });
 
     canvas.add(cropRect);
@@ -175,11 +174,9 @@ const CollageEditor = () => {
     const activeObject = canvas.getActiveObject();
     if (!activeObject || activeObject.type !== "image") return;
 
-    // חיפוש המסגרת האדומה (הריבוע)
     const cropRect = canvas.getObjects().find((obj) => obj.type === "rect") as fabric.Rect;
     if (!cropRect) return;
 
-    // גישה למימדים ולמיקום של התמונה והמסגרת
     const image = activeObject as fabric.Image;
     const imgElement = image._element as HTMLImageElement;
     if (!imgElement) return;
@@ -187,13 +184,11 @@ const CollageEditor = () => {
     const { left: imgLeft, top: imgTop, scaleX, scaleY } = image;
     const { left: rectLeft, top: rectTop, width, height } = cropRect;
 
-    // חישוב יחס החיתוך מהתמונה המקורית
     const cropX = (rectLeft! - imgLeft!) / scaleX!;
     const cropY = (rectTop! - imgTop!) / scaleY!;
     const cropWidth = width! / scaleX!;
     const cropHeight = height! / scaleY!;
 
-    // יצירת קנבס זמני בגודל החיתוך
     const tempCanvas = document.createElement("canvas");
     const ctx = tempCanvas.getContext("2d");
     if (!ctx) return;
@@ -201,28 +196,23 @@ const CollageEditor = () => {
     tempCanvas.width = cropWidth;
     tempCanvas.height = cropHeight;
 
-    // חיתוך התמונה לפי החלק המסומן
     ctx.drawImage(
       imgElement,
-      cropX, cropY, cropWidth, cropHeight, // מקור התמונה (x, y, רוחב, גובה)
-      0, 0, tempCanvas.width, tempCanvas.height // מיקום בקנבס החדש
+      cropX, cropY, cropWidth, cropHeight, 
+      0, 0, tempCanvas.width, tempCanvas.height 
     );
 
-    // יצירת תמונה חתוכה חדשה
     const croppedImg = new Image();
     croppedImg.src = tempCanvas.toDataURL();
 
     croppedImg.onload = () => {
-      // הצגת התמונה החתוכה בגודל של המסגרת האדומה
       const cropped = new fabric.Image(croppedImg, {
-        left: rectLeft, // הצגת התמונה במיקום של המסגרת
+        left: rectLeft, 
         top: rectTop,
-        // השארת ה-scaleX וה-scaleY כפי שהם (אם יש צורך לשנות אותם ניתן לעשות זאת בהתאם)
-        scaleX: width! / cropWidth, // התאמת הגודל לכל רוחב התמונה
-        scaleY: height! / cropHeight, // התאמת הגובה של התמונה
+        scaleX: width! / cropWidth,
+        scaleY: height! / cropHeight, 
       });
 
-      // הסרת התמונה המקורית והריבוע מהקנבס
       canvas.remove(image, cropRect);
       canvas.add(cropped);
       canvas.setActiveObject(cropped);
@@ -232,71 +222,9 @@ const CollageEditor = () => {
 
   return (
     <Box sx={{ display: "flex" }}>
-      {/* <Box sx={{ position: "fixed", bottom: 0, left: 0, width: "100%", backgroundColor: "white", }}>
-        <Box sx={{ flex: 1, textAlign: "center", marginTop: 10 }}>
-          <Paper sx={{ p: 2, display: "inline-block" }}>
-            <canvas id="collageCanvas" style={{ border: "2px solid black", width: "100%", height: "400px" }}></canvas>
-          </Paper>
-        </Box>
-        <Stack direction="row" spacing={16} sx={{marginBottom:5, justifyContent: "center", alignItems: "center", marginTop: 5, display: "flex",  padding: "10px" }}>
-
-          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <IconButton onClick={() => navigate("/start")} sx={{ fontSize: 40, color: "black" }}>
-              <ArrowBackIcon />
-            </IconButton>
-            <Typography variant="caption">חזרה</Typography>
-          </Box>
-
-          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <Box
-              {...getRootProps()}
-              sx={{ border: isDragActive ? "3px solid blue" : "2px dashed gray",  cursor: "pointer", width: 40, height: 40, borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center", mt: 1, backgroundColor: "transparent" }}>
-              <input {...getInputProps()} />
-              <CloudUploadIcon sx={{ fontSize: 30 }} />
-            </Box>
-            <Typography variant="caption">העלאת תמונה</Typography>
-          </Box>
-
-          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <IconButton onClick={addTextToCanvas} sx={{ fontSize: 40, color: "black" }}>
-              <TextFieldsIcon />
-            </IconButton>
-            <Typography variant="caption">הוספת טקסט</Typography>
-          </Box>
-
-          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <IconButton onClick={cropImage} sx={{ fontSize: 40, color: "black" }}>
-              <CropIcon />
-            </IconButton>
-            <Typography variant="caption">חיתוך אלמנט</Typography>
-          </Box>
-
-          {isCrop && <Button onClick={applyCrop} sx={{ fontSize: 20, color: "black", padding: "10px 20px", backgroundColor: "#f0f0f0", borderRadius: "8px", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", cursor: "pointer" }}>בצע חיתוך</Button>}
-
-          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <IconButton onClick={deleteSelected} sx={{ fontSize: 40, color: "black" }}>
-              <DeleteIcon />
-            </IconButton>
-            <Typography variant="caption">מחיקת אלמנט</Typography>
-          </Box>
-
-          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <IconButton onClick={saveCollage} sx={{ fontSize: 40, color: "black" }}>
-              <SaveIcon />
-            </IconButton>
-            <Typography variant="caption">שמירה בחשבונך</Typography>
-          </Box>
-
-          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <IconButton onClick={download} sx={{ fontSize: 40, color: "black" }}>
-              <SaveAltIcon />
-            </IconButton>
-            <Typography variant="caption">הורדה</Typography>
-          </Box>
-        </Stack>
-      </Box> */}
 
       <Box sx={{ display: "flex" }}>
+        
         <Stack direction="column" spacing={2} sx={{ alignItems: "flex-start", mr: 12, marginLeft: -8, marginTop: 5 }}>
 
           <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", paddingLeft: "14px" }}>
