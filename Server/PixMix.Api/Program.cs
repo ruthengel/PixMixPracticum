@@ -35,9 +35,9 @@ builder.Services.AddScoped<UserService>();
 var awsOptions = builder.Configuration.GetSection("AWS");
 builder.Services.AddSingleton<IAmazonS3>(sp =>
     new AmazonS3Client(
-        awsOptions["AccessKey"],
-        awsOptions["SecretKey"],
-        new AmazonS3Config { RegionEndpoint = Amazon.RegionEndpoint.GetBySystemName(awsOptions["Region"]) }
+        Environment.GetEnvironmentVariable("AWS_ACCESSKEY"),
+         Environment.GetEnvironmentVariable("AWS_SECRETKEY"),
+        new AmazonS3Config { RegionEndpoint = Amazon.RegionEndpoint.GetBySystemName(Environment.GetEnvironmentVariable("AWS_REGION")) }
 ));
 
 builder.Services.AddAuthentication(options =>
