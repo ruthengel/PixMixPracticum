@@ -23,7 +23,7 @@ namespace PixMix.Api.Controllers
         {
             var request = new GetPreSignedUrlRequest
             {
-                BucketName = Environment.GetEnvironmentVariable("AWS_BucketName"),
+                BucketName = Environment.GetEnvironmentVariable("AWS_BUCKETNAME"),
                 Key = fileName,
                 Verb = HttpVerb.PUT,
                 Expires = DateTime.UtcNow.AddMinutes(30),
@@ -39,7 +39,7 @@ namespace PixMix.Api.Controllers
         {
             var request = new GetPreSignedUrlRequest
             {
-                BucketName = Environment.GetEnvironmentVariable("AWS_BucketName"),
+                BucketName = Environment.GetEnvironmentVariable("AWS_BUCKETNAME"),
                 Key = fileName,
                 Verb = HttpVerb.GET,
                 Expires = DateTime.UtcNow.AddMinutes(30) 
