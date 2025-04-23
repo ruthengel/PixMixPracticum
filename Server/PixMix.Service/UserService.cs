@@ -95,7 +95,7 @@ namespace PixMix.Service
 
         public string GenerateJwtToken(int userId, string username, string email, string role)
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("Jwt_Key")));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var claims = new List<Claim>
@@ -106,8 +106,8 @@ namespace PixMix.Service
                 new Claim(ClaimTypes.Role, role)
             };
             var token = new JwtSecurityToken(
-                issuer: _configuration["Jwt:Issuer"],
-                audience: _configuration["Jwt:Audience"],
+                issuer: Environment.GetEnvironmentVariable("Jwt_Issuer"),
+                audience: Environment.GetEnvironmentVariable("Jwt_Audience"),
                 claims: claims,
                 expires: DateTime.Now.AddMinutes(60 * 24),
                 signingCredentials: credentials
