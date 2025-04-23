@@ -1,6 +1,6 @@
 import { Box, Button, Typography, Container, Grid, Card, CardContent, Dialog, DialogContent, IconButton, Link } from "@mui/material";
 import { styled } from "@mui/system";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import { useSelector } from "react-redux";
@@ -41,26 +41,11 @@ const AnimatedCard = styled(Card)({
 });
 
 const HomePage = () => {
+
     const token = useSelector((state: RootState) => state.token.token);
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
-    const [showBackground, setShowBackground] = useState(false);
 
-
-    useEffect(() => {
-        document.body.classList.add("home-background");
-        const timer = setTimeout(() => {
-            document.body.classList.remove("home-background");
-            setShowBackground(true)
-        }, 2000);
-
-        return () => {
-            clearTimeout(timer);
-            document.body.classList.remove("home-background");
-        };
-
-
-    }, [token]);
 
     const handleOpen = () => {
         if (token)
@@ -69,7 +54,7 @@ const HomePage = () => {
             setOpen(true)
     }
 
-    return showBackground && (
+    return (
 
         < Box >
             <Container maxWidth="md" sx={{ width: '100vw', height: '100vh', marginTop: 10, textAlign: "center", py: 10 }}>

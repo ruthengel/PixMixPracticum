@@ -2,8 +2,6 @@ import { Box, List, ListItem, ListItemButton, ListItemButtonProps, ListItemText,
 import { Link, LinkProps } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "./stores/Store";
-import { useEffect, useState } from "react";
-// import logo from "../assets/logo.png";
 
 const StyleListItemButton = styled(ListItemButton)<ListItemButtonProps & LinkProps>(() => ({
     padding: "10px 20px",
@@ -28,20 +26,8 @@ const StyleListItemButton = styled(ListItemButton)<ListItemButtonProps & LinkPro
 
 const NavBar = () => {
     const token = useSelector((state: RootState) => state.token.token);
-    const [showBackground, setShowBackground] = useState(false);
 
-    useEffect(() => {
-
-        const timer = setTimeout(() => {
-            setShowBackground(true)
-        }, 2000);
-
-        return () => {
-            clearTimeout(timer);
-        };
-    }, []);
-
-    return showBackground && (
+    return (
         <Box sx={{ width: "100%", backgroundColor: "white", display: "flex", justifyContent: 'space-between', alignItems: "center", padding: "-30px", position: "fixed", height: '70px', top: 0, left: 0, zIndex: 1000, boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)", overflow: "hidden" }}>
 
             {!token && <Box> </Box>}

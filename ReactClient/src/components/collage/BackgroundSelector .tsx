@@ -2,26 +2,11 @@ import { useState } from "react";
 import { Box, Dialog, DialogContent, IconButton, Typography } from "@mui/material";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import color1 from "../../assets/backgrounds/color1.png";
-import color2 from "../../assets/backgrounds/color2.png";
-import color3 from "../../assets/backgrounds/color3.png";
-import color4 from "../../assets/backgrounds/color4.png";
-import brown1 from "../../assets/backgrounds/brown1.png";
-import brown3 from "../../assets/backgrounds/brown3.png";
-import full1 from "../../assets/backgrounds/full1.png";
-import full2 from "../../assets/backgrounds/full2.png";
-import full3 from "../../assets/backgrounds/full3.png";
-import green1 from "../../assets/backgrounds/green1.png";
-import green2 from "../../assets/backgrounds/green2.png";
-import memo1 from "../../assets/backgrounds/memo1.png";
-import memo2 from "../../assets/backgrounds/memo2.png";
-import memo3 from "../../assets/backgrounds/memo3.png";
-import empty from "../../assets/backgrounds/empty.png";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import { useNavigate } from "react-router-dom";
 
 const BackgroundSelector = () => {
-    const backgrounds = [color1, color2, color3, color4, brown1, brown3, full1, full2, full3, green1, green2, memo1, memo2, memo3, empty];
+    const backgrounds = ['images/backgrounds/color1.png', 'images/backgrounds/color2.png', 'images/backgrounds/color3.png', 'images/backgrounds/color4.png', 'images/backgrounds/brown1.png', 'images/backgrounds/brown2.png', 'images/backgrounds/full1.png', 'images/backgrounds/full2.png', 'images/backgrounds/full3.png', 'images/backgrounds/green1.png', 'images/backgrounds/green2.png', 'images/backgrounds/memo1.png', 'images/backgrounds/memo2.png', 'images/backgrounds/memo3.png', 'images/backgrounds/empty.png'];
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isSelect, setIsSelect] = useState(true);
     const navigate = useNavigate();
