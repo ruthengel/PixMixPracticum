@@ -54,7 +54,7 @@ namespace PixMix.Api.Controllers
         {
             var request = new GetPreSignedUrlRequest
             {
-                BucketName = Environment.GetEnvironmentVariable("AWS_BucketName"),
+                BucketName = Environment.GetEnvironmentVariable("AWS_BUCKETNAME"),
                 Key = fileName,
                 Verb = HttpVerb.DELETE,
                 Expires = DateTime.UtcNow.AddMinutes(30)

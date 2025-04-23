@@ -21,7 +21,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 //builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 //var connectionString = builder.Configuration.GetConnectionStrinsg("DefaultConnection");
-builder.Services.AddDbContext<DataContext>(options => options.UseMySQL(Environment.GetEnvironmentVariable("ConnectionStrings")));
+builder.Services.AddDbContext<DataContext>(options => options.UseMySQL(Environment.GetEnvironmentVariable("CONNECTIONSTRING")));
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -53,9 +53,9 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = Environment.GetEnvironmentVariable("Jwt_Issuer"),
-        ValidAudience = Environment.GetEnvironmentVariable("Jwt_Audience"),
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("Jwt_Key"))),
+        ValidIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER"),
+        ValidAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE"),
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_KEY"))),
         RoleClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
     };
     options.Events = new JwtBearerEvents
