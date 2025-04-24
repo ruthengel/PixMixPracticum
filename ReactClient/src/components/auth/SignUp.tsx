@@ -5,6 +5,7 @@ import SendIcon from "@mui/icons-material/Send";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch } from "react-redux";
 import { setToken } from "../stores/TokenSlice";
+const myUrl = import.meta.env.SERVERURL
 
 const SignUp = () => {
     const dispatch = useDispatch()
@@ -20,7 +21,7 @@ const SignUp = () => {
         setSignup(false);
 
         try {
-            const res = await axios.post("https://localhost:7231/api/User/register", {
+            const res = await axios.post(`${myUrl}/api/User/register`, {
                 name: nameRef.current?.value,
                 email: emailRef.current?.value,
                 password: passswordRef.current?.value

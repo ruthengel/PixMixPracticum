@@ -6,7 +6,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setToken } from "../stores/TokenSlice";
 import { RootState } from "../stores/Store";
-
+const myUrl = import.meta.env.SERVERURL
 const SignIn = () => {
 
     const userId = useSelector((state: RootState) => state.token.user?.userId);
@@ -18,13 +18,12 @@ const SignIn = () => {
 
 
     const handleSubmit = async (e: FormEvent) => {
-        console.log();
 
         e.preventDefault();
         setSignin(false);
 
         try {
-            const res = await axios.post("https://localhost:7231/api/User/login", {
+            const res = await axios.post(`${myUrl}/api/User/login`, {
                 email: emailRef.current?.value,
                 password: passswordRef.current?.value
             });
@@ -45,7 +44,7 @@ const SignIn = () => {
         }
     };
 
-    return  (<>
+    return (<>
         <Button sx={{ position: "fixed", top: 15, left: 20, zIndex: 1350, color: "white", background: "linear-gradient(270deg, #7D2AE8, #00A0A8)", backgroundClip: "border-box", padding: "10px 20px", whiteSpace: "nowrap", "&:hover": { background: "linear-gradient(270deg, #00A0A8,  #7D2AE8)", color: "white", transition: "background-color 0.3s ease, color 0.3s ease" } }} variant="contained" size="medium" onClick={() => { setOpen(true); setSignin(true); }}>Sign in</Button>
         {signin && (
             <Modal open={open} onClose={() => setOpen(false)} aria-labelledby="login-modal-title" aria-describedby="login-modal-description">

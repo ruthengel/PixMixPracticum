@@ -1,10 +1,12 @@
 import axios from "axios";
 import { addCollage } from "./CollageSlice";
+const myUrl = import.meta.env.SERVERURL
+
 class CollageStore {
 
   getUploadUrl = async (fileName: string, token: string | null) => {
     try {
-      const res = await axios.get('https://localhost:7231/api/upload/presigned-url', {
+      const res = await axios.get(`${myUrl}/api/upload/presigned-url`, {
         params: {
           fileName: fileName,
         },
@@ -21,7 +23,7 @@ class CollageStore {
 
   getDownloadUrl = async (fileName: string, token: string | null) => {
     try {
-      const res = await axios.get('https://localhost:7231/api/upload/download-url', {
+      const res = await axios.get(`${myUrl}/api/upload/download-url`, {
         params: {
           fileName: fileName,
         },
@@ -39,7 +41,7 @@ class CollageStore {
 
   getDeleteUrl = async (fileName: string, token: string | null) => {
     try {
-      const res = await axios.get('https://localhost:7231/api/upload/delete-url', {
+      const res = await axios.get(`${myUrl}/api/upload/delete-url`, {
         params: {
           fileName: fileName,
         },
@@ -105,7 +107,7 @@ class CollageStore {
 
   addCollage = async (file: File, token: string | null, userId: string | null | undefined, url: string, dispatch: any) => {
     try {
-      const res = await axios.post('https://localhost:7231/api/Collage',
+      const res = await axios.post(`${myUrl}/api/Collage`,
         {
           name: file.name, userId: userId, collageUrl: url
         },
@@ -123,7 +125,7 @@ class CollageStore {
 
   deleteCollage = async (collageId: string, token: string | null) => {
     try {
-      const res = await axios.delete(`https://localhost:7231/api/Collage/${collageId}`,
+      const res = await axios.delete(`${myUrl}/api/Collage/${collageId}`,
         { headers: { Authorization: `Bearer ${token}` } })
       return res.data
     }
@@ -134,7 +136,7 @@ class CollageStore {
 
   getUserCollages = async (userId: string, token: string | null) => {
     try {
-      const res = await axios.get(`https://localhost:7231/api/Collage/user/${userId}`,
+      const res = await axios.get(`${myUrl}/api/Collage/user/${userId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`
