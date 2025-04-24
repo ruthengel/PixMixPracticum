@@ -14,7 +14,7 @@ class UserStore {
 
     updateUser = async (id: string | null | undefined, user: any, token: string | null, dispatch: any) => {
         try {
-            const res = await axios.put(`https://localhost:7231/api/User/update/${id}`, user, { headers: { Authorization: `Bearer ${token}` } });
+            const res = await axios.put(`${myUrl}/api/User/update/${id}`, user, { headers: { Authorization: `Bearer ${token}` } });
             if (res) {
                 alert(`user update successfully!`)
                 dispatch(setToken(res.data.token))
