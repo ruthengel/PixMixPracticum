@@ -8,10 +8,10 @@ const Store = configureStore({
     user: userSlice,
     token:tokenSlice,
     collages:collageSlice
-     // הכנסנו את ה-reducer של ה-auth כאן
+     
   },
 });
 
-export type RootState = ReturnType<typeof Store.getState>; // הגדרת טיפוס RootState
+export type RootState = ReturnType<typeof Store.getState>;
 export type AppDispatch = typeof Store.dispatch;
 export default Store;

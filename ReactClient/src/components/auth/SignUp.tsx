@@ -5,7 +5,7 @@ import SendIcon from "@mui/icons-material/Send";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch } from "react-redux";
 import { setToken } from "../stores/TokenSlice";
-const myUrl = import.meta.env.SERVERURL
+const myUrl = import.meta.env.VITE_SERVERURL
 
 const SignUp = () => {
     const dispatch = useDispatch()

@@ -1,6 +1,6 @@
 import axios from "axios"
 import { setToken } from "./TokenSlice";
-const myUrl = import.meta.env.SERVERURL
+const myUrl = import.meta.env.VITE_SERVERURL
 
 class UserStore {
 

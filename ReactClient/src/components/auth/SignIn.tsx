@@ -6,7 +6,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setToken } from "../stores/TokenSlice";
 import { RootState } from "../stores/Store";
-const myUrl = import.meta.env.SERVERURL
+const myUrl = import.meta.env.VITE_SERVERURL
 const SignIn = () => {
 
     const userId = useSelector((state: RootState) => state.token.user?.userId);
