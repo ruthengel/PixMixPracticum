@@ -16,7 +16,6 @@ const SignIn = () => {
     const emailRef = useRef<HTMLInputElement>(null)
     const passswordRef = useRef<HTMLInputElement>(null)
 
-
     const handleSubmit = async (e: FormEvent) => {
 
         e.preventDefault();
@@ -58,7 +57,6 @@ const SignIn = () => {
                 </Box>
             </Modal>
         )}
-
     </>)
 }
 export default SignIn

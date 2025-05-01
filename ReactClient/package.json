@@ -21,6 +21,7 @@
     "html2canvas": "^1.4.1",
     "jwt-decode": "^4.0.0",
     "konva": "^9.3.19",
+    "lucide-react": "^0.503.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-dropzone": "^14.3.8",
