@@ -1,12 +1,12 @@
 import {  Box, Divider, Button, IconButton, Modal, TextField } from "@mui/material";
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../stores/Store";
+import { RootState } from "../../stores/Store";
 import { ArrowDropDown } from "@mui/icons-material";
-import { signOut } from "../stores/TokenSlice";
+import { signOut } from "../../stores/TokenSlice";
 import SendIcon from "@mui/icons-material/Send";
 import CloseIcon from "@mui/icons-material/Close";
-import UserStore from "../stores/UserStore";
+import UserStore from "../../stores/UserStore";
 import { useNavigate } from "react-router-dom";
 
 const Profile = () => {

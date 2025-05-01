@@ -1,0 +1,95 @@
+.navbar {
+    background-color: white;
+    box-shadow: none;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color:rgba(167, 235, 229, 0.2);
+}
+
+.mat-button {
+    font-size: 16px;
+    margin: 0 10px;
+    padding: 10px 15px;
+}
+
+/* הוספת רווח מלמעלה לקישורים */
+.nav-item {
+    text-transform: capitalize;
+    margin-top: 10px;
+    /* רווח מלמעלה */
+    font-weight: normal;
+}
+
+/* צבעים שונים לכל קישור */
+.home {
+    color: #ff5722;
+    /* צבע כתום עבור Home */
+}
+
+.sign-up {
+    color: #03a9f4;
+    /* צבע כחול עבור Sign-up */
+}
+
+.sign-in {
+    color: #4caf50;
+    /* צבע ירוק עבור Sign-in */
+}
+
+.courses {
+    color: #ff9800;
+    /* צבע צהוב עבור Courses */
+}
+
+.courses-manage {
+    color: #9c27b0;
+    /* צבע סגול עבור CoursesManage */
+}
+
+.my-courses {
+    color: #3f51b5;
+    /* צבע כחול כהה עבור MyCourses */
+}
+
+.logout {
+    color: #f44336;
+    /* צבע אדום עבור Logout */
+}
+
+/* אפקט Hover */
+.mat-button:hover {
+    background-color: #f1f1f1;
+    /* רקע בהובר */
+    color: #000;
+    /* צבע טקסט ב-hover */
+    transform: scale(1.05);
+    /* אנימציה של גידול בגודל */
+}
+
+/* אפקט Hover צבעוני: שינוי צבע כאשר הסמן עובר */
+.nav-item:hover {
+    color: #ffffff;
+    /* צבע טקסט בהובר */
+    background-color: #bfe8e7;
+    /* רקע בהובר */
+    transition: all 0.3s ease;
+    /* אפקט מעבר רך */
+}
+
+/* אפקט עבור כפתור Logout */
+.logout:hover {
+    background-color: #f44336;
+    /* רקע אדום */
+    color: white;
+    /* צבע לבן */
+}
+
+/* רווחים וקטעי עיצוב נוספים */
+.navbar {
+    padding: 10px 0;
+}

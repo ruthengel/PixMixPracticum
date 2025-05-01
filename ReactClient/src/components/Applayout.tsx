@@ -3,7 +3,7 @@ import NavBar from "./NavBar";
 import SignIn from "./auth/SignIn";
 import SignUp from "./auth/SignUp";
 import { useSelector } from "react-redux";
-import { RootState } from "./stores/Store";
+import { RootState } from "../stores/Store";
 import Profile from "./auth/Profile";
 import { IconButton } from "@mui/material";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";

@@ -1,0 +1,35 @@
+<mat-card class="login-card">
+    <mat-card-title>Log In</mat-card-title>
+    <form [formGroup]="loginForm" (ngSubmit)="logIn()">
+        <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput id="email" formControlName="email" required>
+            @if(form['email'] && form['email'].errors && form['email'].touched) {
+            @if(form['email'].errors['required']) {
+            <mat-error>email is required</mat-error>
+            }
+            @if(form['email'].errors['email']) {
+            <mat-error>email is not valid</mat-error>
+            }
+            }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput id="password" type="password" formControlName="password" required>
+            @if(form['password'] && form['password'].errors && form['password'].touched) {
+            @if(form['password'].errors['required']) {
+            <mat-error>password is required</mat-error>
+            }
+            @if(form['password'].errors['minlength']) {
+            <mat-error>password must be at least 4 characters</mat-error>
+            }
+            @if(form['password'].errors['maxlength']) {
+            <mat-error>password must be at most 8 characters</mat-error>
+            }
+            }
+        </mat-form-field>
+
+        <button mat-raised-button type="submit" [disabled]="loginForm.invalid">Submit</button>
+    </form>
+</mat-card>

@@ -4,8 +4,8 @@ import SendIcon from "@mui/icons-material/Send";
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { setToken } from "../stores/TokenSlice";
-import { RootState } from "../stores/Store";
+import { setToken } from "../../stores/TokenSlice";
+import { RootState } from "../../stores/Store";
 const myUrl = import.meta.env.VITE_SERVERURL
 const SignIn = () => {
 

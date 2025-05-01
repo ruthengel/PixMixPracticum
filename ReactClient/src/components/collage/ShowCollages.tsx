@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../stores/Store";
-import { setCollages, removeCollage } from "../stores/CollageSlice";
-import CollageStore from "../stores/CollageStore";
+import { RootState } from "../../stores/Store";
+import { setCollages, removeCollage } from "../../stores/CollageSlice";
+import CollageStore from "../../stores/CollageStore";
 import { IconButton, Dialog, DialogActions, Card, CardMedia, CardActions, Tooltip } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CloseIcon from "@mui/icons-material/Close";

@@ -1,0 +1,98 @@
+.login-container {
+    height: 100vh;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.login-card {
+    width: 400px; 
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    animation: slideIn 0.5s ease-in-out;  
+    background-color: rgba(167, 235, 229, 0.2);
+    margin-top: 10%;
+    margin-left: 36%;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+#eye{
+    margin: 10px;
+    cursor: pointer;
+}
+.mat-card-title {
+    font-size: 18px; /* כותרת קטנה יותר */
+    text-align: center;
+    color: #70b2b1;
+}
+
+.mat-form-field {
+    width: 100%;
+    margin-bottom: 20px; /* מרווח קטן בין השדות */
+}
+
+.mat-form-field .mat-input-element {
+    font-size: 14px; /* הקטנת הגודל של הטקסט בשדה */
+    padding: 8px; /* הקטנתי את הריפוד */
+}
+
+/* 6. מיקום ושינוי עיצוב של טעויות (mat-error) */
+.mat-error {
+    color: red;
+    font-size: 12px; /* כתב יותר קטן */
+    margin-top: 700px; /* מרווח קטן מתחת לשדה */
+}
+
+/* 7. שינוי צבע מסגרת ה-INPUT בעת לחיצה */
+.mat-form-field-appearance-outline .mat-form-field-outline {
+    border-color: #b0e0e6; /* צבע מסגרת רגיל */
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline.mat-focused {
+    border-color: #70b2b1 !important;  /* צבע טורקיז כאשר השדה בפוקוס */
+    box-shadow: 0 0 5px 2px rgba(112, 178, 177, 0.5); /* הצללה */
+}
+
+/* 8. שינוי צבע כפתור ה-Submit */
+button {
+    width: 100%;
+    background-color: #70b2b1;  /* צבע הרקע */
+    color: white;
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;  /* מרווחים בין האותיות */
+    transition: background-color 0.3s ease;
+}
+
+button:disabled {
+    background-color: #b2dfdf;
+}
+
+button:not(:disabled) {
+    background-color: #70b2b1;  /* צבע רקע רגיל */
+    color: white;
+}
+
+button:disabled {
+    background-color: #b2dfdf;
+    color: white;
+    cursor: not-allowed;
+}
+
+/* 9. כפתור ה-login שישמור על העיצוב */
+.mat-button {
+    background-color: #70b2b1;
+    color: white;
+}

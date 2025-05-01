@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import { useSelector } from "react-redux";
 import { EmojiEvents } from "@mui/icons-material";
-import { RootState } from "./stores/Store";
+import { RootState } from "../stores/Store";
 
 
 const GradientText = styled("span")({

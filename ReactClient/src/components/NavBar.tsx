@@ -1,7 +1,7 @@
 import { Box, List, ListItem, ListItemButton, ListItemButtonProps, ListItemText, styled } from "@mui/material";
 import { Link, LinkProps } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { RootState } from "./stores/Store";
+import { RootState } from "../stores/Store";
 
 const StyleListItemButton = styled(ListItemButton)<ListItemButtonProps & LinkProps>(() => ({
     padding: "10px 20px",
