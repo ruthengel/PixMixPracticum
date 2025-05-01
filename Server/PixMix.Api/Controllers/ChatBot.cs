@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Text.Json.Serialization;
 using System.Text.Json;
 
+
 namespace PixMix.Api.Controllers
 {
     [Route("api/[controller]")]
@@ -16,10 +17,28 @@ namespace PixMix.Api.Controllers
         {
             try
             {
+                // הגדרת תוכן מערכת שמכוון את ה-AI לתת המלצה על רקעים
+                var systemContent = @"
+אתה עוזר למשתמש לבחור רקע מתאים לעיצוב קולאז'. אלו הרקעים הקיימים:
+1. ""חגיגי ורוד"" – רקע ורוד עם קונפטי, מתאים לעד 4 תמונות.
+2. ""קלאסי לבן"" – רקע לבן עם מסגרת אפורה, מתאים ל-1-3 תמונות, סגנון אלגנטי.
+3. ""טבע ירוק"" – רקע עם עלים ועצים, מתאים בדיוק ל-2 תמונות, אווירה רגועה.
+4. ""מסיבת ילדים"" – רקע צבעוני עם בלונים, מתאים ל-3-6 תמונות, אווירה שמחה ועליזה.
+
+בהתאם לתיאור של המשתמש, המלץ על רקע מתאים מתוך הרשימה.";
+
+                // הוספת הודעת מערכת בראש רשימת ההודעות
+                var messages = new List<ChatMessage>
+                {
+                    new ChatMessage { Role = "system", Content = systemContent }
+                };
+
+                messages.AddRange(request.Messages);
+
                 var payload = new
                 {
                     model = "gpt-4o-mini",
-                    messages = request.Messages
+                    messages = messages
                 };
 
                 var httpRequest = new HttpRequestMessage(HttpMethod.Post, "https://api.openai.com/v1/chat/completions")
@@ -68,5 +87,4 @@ namespace PixMix.Api.Controllers
         [JsonPropertyName("content")]
         public string Content { get; set; }
     }
-}
 }
