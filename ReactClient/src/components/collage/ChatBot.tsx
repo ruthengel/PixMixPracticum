@@ -652,7 +652,7 @@ export default function ChatBot() {
 
       setMessages((prev) => [
         ...prev,
-        { role: 'user', content: input },
+        // { role: 'user', content: input },
         { role: 'assistant', content: data.reply },
       ]);
     } catch (err) {
