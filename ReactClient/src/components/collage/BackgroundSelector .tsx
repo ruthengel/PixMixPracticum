@@ -22,7 +22,8 @@ const BackgroundSelector = () => {
         // מעביר את שם הקובץ בפרמטר שורה (query param)
         // navigate(`/collage?bg=${encodeURIComponent(selectedBackgroundName!)}`);
         const selectedBackgroundName = backgrounds[currentIndex].split("/").pop() ?? "";
-        navigate(`/collage?background=${encodeURIComponent(selectedBackgroundName)}`);
+        // navigate(`/collage?background=${encodeURIComponent(selectedBackgroundName)}`);
+        navigate(`/collage/${encodeURIComponent(selectedBackgroundName)}`);
         setIsSelect(false);
 
     };
