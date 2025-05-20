@@ -738,7 +738,7 @@ const BackgroundRecommenderChat = () => {
       if(result) 
         console.log("success")
       setResponse(result.data.reply);
-      console.log(response);
+      console.log(result.data.reply);
       
     } catch (err) {
       console.log("error");      
