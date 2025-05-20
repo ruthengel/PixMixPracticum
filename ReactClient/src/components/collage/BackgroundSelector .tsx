@@ -6,7 +6,8 @@ import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import { useNavigate } from "react-router-dom";
 import ChatBot from "./ChatBot";
 const BackgroundSelector = () => {
-    const backgrounds = [`/images/backgrounds/color1.png`, '/images/backgrounds/color2.png', '/images/backgrounds/color3.png', '/images/backgrounds/color4.png', '/images/backgrounds/brown1.png', '/images/backgrounds/brown2.png', '/images/backgrounds/full1.png', '/images/backgrounds/full2.png', '/images/backgrounds/full3.png', '/images/backgrounds/green1.png', '/images/backgrounds/green2.png', '/images/backgrounds/memo1.png', '/images/backgrounds/memo2.png', '/images/backgrounds/memo3.png', '/images/backgrounds/empty.png'];
+    const backgrounds = [`images/backgrounds/color1.png`, 'images/backgrounds/color2.png', 'images/backgrounds/color3.png', 'images/backgrounds/color4.png', 'images/backgrounds/brown1.png', 'images/backgrounds/brown2.png', 'images/backgrounds/full1.png', 'images/backgrounds/full2.png', 'images/backgrounds/full3.png', 'images/backgrounds/green1.png', 'images/backgrounds/green2.png', 'images/backgrounds/memo1.png', 'images/backgrounds/memo2.png', 'images/backgrounds/memo3.png', 'images/backgrounds/empty.png'];
+    // const backgrounds = [`/images/backgrounds/color1.png`, '/images/backgrounds/color2.png', '/images/backgrounds/color3.png', '/images/backgrounds/color4.png', '/images/backgrounds/brown1.png', '/images/backgrounds/brown2.png', '/images/backgrounds/full1.png', '/images/backgrounds/full2.png', '/images/backgrounds/full3.png', '/images/backgrounds/green1.png', '/images/backgrounds/green2.png', '/images/backgrounds/memo1.png', '/images/backgrounds/memo2.png', '/images/backgrounds/memo3.png', '/images/backgrounds/empty.png'];
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isSelect, setIsSelect] = useState(true);
     const navigate = useNavigate();
