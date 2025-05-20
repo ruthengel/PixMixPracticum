@@ -735,8 +735,11 @@ const BackgroundRecommenderChat = () => {
       const result = await axios.post('/api/ChatBot', {
         messages: [{ role: 'user', content: prompt }],
       });
+      if(result) 
+        console.log("success")
       setResponse(result.data.reply);
     } catch (err) {
+      console.log("error");      
       setResponse('אירעה שגיאה בשליחה לשרת.');
     } finally {
       setLoading(false);
