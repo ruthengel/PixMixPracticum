@@ -5,18 +5,25 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import { useNavigate } from "react-router-dom";
 import ChatBot from "./ChatBot";
-
 const BackgroundSelector = () => {
-    const backgrounds = ['images/backgrounds/color1.png', 'images/backgrounds/color2.png', 'images/backgrounds/color3.png', 'images/backgrounds/color4.png', 'images/backgrounds/brown1.png', 'images/backgrounds/brown2.png', 'images/backgrounds/full1.png', 'images/backgrounds/full2.png', 'images/backgrounds/full3.png', 'images/backgrounds/green1.png', 'images/backgrounds/green2.png', 'images/backgrounds/memo1.png', 'images/backgrounds/memo2.png', 'images/backgrounds/memo3.png', 'images/backgrounds/empty.png'];
+    const backgrounds = [`/images/backgrounds/color1.png`, '/images/backgrounds/color2.png', '/images/backgrounds/color3.png', '/images/backgrounds/color4.png', '/images/backgrounds/brown1.png', '/images/backgrounds/brown2.png', '/images/backgrounds/full1.png', '/images/backgrounds/full2.png', '/images/backgrounds/full3.png', '/images/backgrounds/green1.png', '/images/backgrounds/green2.png', '/images/backgrounds/memo1.png', '/images/backgrounds/memo2.png', '/images/backgrounds/memo3.png', '/images/backgrounds/empty.png'];
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isSelect, setIsSelect] = useState(true);
     const navigate = useNavigate();
     const [open, setOpen] = useState(true)
 
     const handleSelectBackground = () => {
-        const selectedBackground = encodeURIComponent(backgrounds[currentIndex]);
-        navigate(`/collage/${selectedBackground}`);
+        // const selectedBackground = encodeURIComponent(backgrounds[currentIndex]);
+        // navigate(`/collage/${selectedBackground}`);
+        // setIsSelect(false);
+        // מחלץ את שם הקובץ בלבד, בלי הנתיב המלא
+        // const selectedBackgroundName = backgrounds[currentIndex].split("/").pop();
+        // מעביר את שם הקובץ בפרמטר שורה (query param)
+        // navigate(`/collage?bg=${encodeURIComponent(selectedBackgroundName!)}`);
+        const selectedBackgroundName = backgrounds[currentIndex].split("/").pop() ?? "";
+        navigate(`/collage?bg=${encodeURIComponent(selectedBackgroundName)}`);
         setIsSelect(false);
+
     };
 
     const handleNext = () => {
@@ -49,9 +56,9 @@ const BackgroundSelector = () => {
                         sx={{ width: 70, height: 50, objectFit: "cover", borderRadius: 1, cursor: "pointer", border: index === currentIndex ? "3px solid grey" : "2px solid #ccc", opacity: index === currentIndex ? 1 : 0.7, transition: "border 0.2s, opacity 0.2s" }} />))}
             </Box>
 
-            <ChatBot/>
+            <ChatBot />
 
-            <Dialog open={open} onClose={() => setOpen(false)} sx={{ '& .MuiDialog-paper': { width: '600px', height: '100px', borderRadius: '12px' } }}>              
+            <Dialog open={open} onClose={() => setOpen(false)} sx={{ '& .MuiDialog-paper': { width: '600px', height: '100px', borderRadius: '12px' } }}>
                 <DialogContent sx={{ textAlign: 'center', marginTop: 0 }} >
                     <Typography>.בחר את התבנית בה תרצה לעצב את הקולא'ז שלך</Typography>
                 </DialogContent>

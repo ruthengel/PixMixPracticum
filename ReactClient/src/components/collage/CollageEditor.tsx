@@ -28,8 +28,11 @@ const CollageEditor = () => {
   const selectedBackground = decodeURIComponent(background || "");
 
   useEffect(() => {
+    // const image = new Image();
+    // image.src = selectedBackground;
+    const backgroundUrl = `/images/backgrounds/${selectedBackground}`;
     const image = new Image();
-    image.src = selectedBackground;
+    image.src = backgroundUrl;
     const canvas = new fabric.Canvas("collageCanvas", {
       width: 1200,
       height: 400,
@@ -124,7 +127,7 @@ const CollageEditor = () => {
     const file = new File([uintArray], `collage_${Math.random().toString(36).substring(2, 15)}.png`, { type: "image/png" });
     const url = await CollageStore.uploadCollageToS3(file, token);
     await CollageStore.addCollage(file, token, userId, url, dispatch);
-    
+
   };
 
   const download = async () => {
@@ -158,7 +161,7 @@ const CollageEditor = () => {
       selectable: true,
       hasControls: true,
       hasBorders: true,
-      lockRotation: true, 
+      lockRotation: true,
     });
 
     canvas.add(cropRect);
@@ -198,8 +201,8 @@ const CollageEditor = () => {
 
     ctx.drawImage(
       imgElement,
-      cropX, cropY, cropWidth, cropHeight, 
-      0, 0, tempCanvas.width, tempCanvas.height 
+      cropX, cropY, cropWidth, cropHeight,
+      0, 0, tempCanvas.width, tempCanvas.height
     );
 
     const croppedImg = new Image();
@@ -207,10 +210,10 @@ const CollageEditor = () => {
 
     croppedImg.onload = () => {
       const cropped = new fabric.Image(croppedImg, {
-        left: rectLeft, 
+        left: rectLeft,
         top: rectTop,
         scaleX: width! / cropWidth,
-        scaleY: height! / cropHeight, 
+        scaleY: height! / cropHeight,
       });
 
       canvas.remove(image, cropRect);
@@ -224,7 +227,7 @@ const CollageEditor = () => {
     <Box sx={{ display: "flex" }}>
 
       <Box sx={{ display: "flex" }}>
-        
+
         <Stack direction="column" spacing={2} sx={{ alignItems: "flex-start", mr: 12, marginLeft: -8, marginTop: 5 }}>
 
           <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", paddingLeft: "14px" }}>
@@ -268,7 +271,7 @@ const CollageEditor = () => {
           </Box>
 
           <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <IconButton onClick={saveCollage} sx={{ fontSize: 40, color: "black",paddingRight:'17px' }}>
+            <IconButton onClick={saveCollage} sx={{ fontSize: 40, color: "black", paddingRight: '17px' }}>
               <SaveIcon />
             </IconButton>
             <Typography variant="caption" sx={{ whiteSpace: 'nowrap' }} >שמירה בחשבונך</Typography>
@@ -282,7 +285,7 @@ const CollageEditor = () => {
           </Box>
         </Stack>
 
-        <Box sx={{ flex: 1, textAlign: "center", marginTop: 10 ,paddingRight:"50px"}}>
+        <Box sx={{ flex: 1, textAlign: "center", marginTop: 10, paddingRight: "50px" }}>
           <Paper sx={{ p: 2, display: "inline-block" }}>
             <canvas id="collageCanvas" style={{ border: "2px solid black", width: "100%", height: "400px" }}></canvas>
           </Paper>
