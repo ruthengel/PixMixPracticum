@@ -613,109 +613,169 @@
 // }
 
 // ChatBot.tsx
-import { useState } from 'react';
-import { MessageCircle } from 'lucide-react';
-import { Button, Card, CardContent } from '@mui/material';
+// import { useState } from 'react';
+// import { MessageCircle } from 'lucide-react';
+// import { Button, Card, CardContent } from '@mui/material';
 
-interface ChatMessage {
-  role: 'user' | 'assistant';
-  content: string;
-}
+// interface ChatMessage {
+//   role: 'user' | 'assistant';
+//   content: string;
+// }
 
-export default function ChatBot() {
-  const [showChat, setShowChat] = useState(false);
-  const [input, setInput] = useState('');
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
+// export default function ChatBot() {
+//   const [showChat, setShowChat] = useState(false);
+//   const [input, setInput] = useState('');
+//   const [messages, setMessages] = useState<ChatMessage[]>([]);
 
-  const sendMessage = async () => {
-    if (!input.trim()) return;
+//   const sendMessage = async () => {
+//     if (!input.trim()) return;
 
-    const newMessages: ChatMessage[] = [...messages, { role: 'user', content: input }];
-    setMessages(newMessages);
-    setInput('');
+//     const newMessages: ChatMessage[] = [...messages, { role: 'user', content: input }];
+//     setMessages(newMessages);
+//     setInput('');
 
+//     try {
+//       const response = await fetch('/api/ChatBot', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify({
+//           messages: newMessages.map((m) => ({
+//             role: m.role,
+//             content: m.content,
+//           })),
+//         }),
+//       });
+
+//       const data = await response.json();
+
+//       setMessages((prev) => [
+//         ...prev,
+//         // { role: 'user', content: input },
+//         { role: 'assistant', content: data.reply },
+//       ]);
+//     } catch (err) {
+//       setMessages((prev) => [
+//         ...prev,
+//         {
+//           role: 'assistant',
+//           content: 'שגיאה בשליחה לשרת. נסה שוב.',
+//         },
+//       ]);
+//     }
+//   };
+
+//   return (
+//     <div className="fixed bottom-4 right-4 z-50">
+//       {!showChat ? (
+//         <Button
+//           onClick={() => setShowChat(true)}
+//           className="rounded-full p-3 shadow-xl bg-blue-600 hover:bg-blue-700 text-white"
+//         >
+//           <MessageCircle className="h-6 w-6" />
+//         </Button>
+//       ) : (
+//         <Card className="w-80 shadow-2xl">
+//           <CardContent className="p-4">
+//             <div className="mb-2 text-sm text-gray-500">
+//               כתוב כמה תמונות יש לך ומה סוג הרקע שאתה רוצה.
+//             </div>
+//             <div className="space-y-2 max-h-64 overflow-y-auto mb-2">
+//               {messages.map((msg, idx) => (
+//                 <div
+//                   key={idx}
+//                   className={`p-2 rounded ${
+//                     msg.role === 'user'
+//                       ? 'bg-blue-100 text-right'
+//                       : 'bg-gray-100 text-left'
+//                   }`}
+//                 >
+//                   {msg.content}
+//                 </div>
+//               ))}
+//             </div>
+//             <div className="flex gap-2">
+//               <input
+//                 className="flex-1 border rounded px-2 py-1 text-sm"
+//                 value={input}
+//                 onChange={(e) => setInput(e.target.value)}
+//                 placeholder="למשל: רקע ורוד ל-3 תמונות"
+//               />
+//               <Button size="small" onClick={sendMessage}>
+//                 שלח
+//               </Button>
+//             </div>
+//             <Button
+//               variant="contained"
+//               className="mt-2 text-xs text-gray-500"
+//               onClick={() => setShowChat(false)}
+//             >
+//               סגור צ'אט
+//             </Button>
+//           </CardContent>
+//         </Card>
+//       )}
+//     </div>
+//   );
+// }
+import  { useState } from 'react';
+import axios from 'axios';
+import { TextField, Button, Box, Typography, Paper } from '@mui/material';
+
+const BackgroundRecommenderChat = () => {
+  const [prompt, setPrompt] = useState('');
+  const [response, setResponse] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSend = async () => {
+    if (!prompt.trim()) return;
+    setLoading(true);
     try {
-      const response = await fetch('/api/ChatBot', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          messages: newMessages.map((m) => ({
-            role: m.role,
-            content: m.content,
-          })),
-        }),
+      const result = await axios.post('/api/ChatBot', {
+        messages: [{ role: 'user', content: prompt }],
       });
-
-      const data = await response.json();
-
-      setMessages((prev) => [
-        ...prev,
-        // { role: 'user', content: input },
-        { role: 'assistant', content: data.reply },
-      ]);
+      setResponse(result.data.reply);
     } catch (err) {
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: 'assistant',
-          content: 'שגיאה בשליחה לשרת. נסה שוב.',
-        },
-      ]);
+      setResponse('אירעה שגיאה בשליחה לשרת.');
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="fixed bottom-4 right-4 z-50">
-      {!showChat ? (
-        <Button
-          onClick={() => setShowChat(true)}
-          className="rounded-full p-3 shadow-xl bg-blue-600 hover:bg-blue-700 text-white"
-        >
-          <MessageCircle className="h-6 w-6" />
-        </Button>
-      ) : (
-        <Card className="w-80 shadow-2xl">
-          <CardContent className="p-4">
-            <div className="mb-2 text-sm text-gray-500">
-              כתוב כמה תמונות יש לך ומה סוג הרקע שאתה רוצה.
-            </div>
-            <div className="space-y-2 max-h-64 overflow-y-auto mb-2">
-              {messages.map((msg, idx) => (
-                <div
-                  key={idx}
-                  className={`p-2 rounded ${
-                    msg.role === 'user'
-                      ? 'bg-blue-100 text-right'
-                      : 'bg-gray-100 text-left'
-                  }`}
-                >
-                  {msg.content}
-                </div>
-              ))}
-            </div>
-            <div className="flex gap-2">
-              <input
-                className="flex-1 border rounded px-2 py-1 text-sm"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="למשל: רקע ורוד ל-3 תמונות"
-              />
-              <Button size="small" onClick={sendMessage}>
-                שלח
-              </Button>
-            </div>
-            <Button
-              variant="contained"
-              className="mt-2 text-xs text-gray-500"
-              onClick={() => setShowChat(false)}
-            >
-              סגור צ'אט
-            </Button>
-          </CardContent>
-        </Card>
+    <Box sx={{ maxWidth: 600, margin: '0 auto', mt: 4, p: 2 }}>
+      <Typography variant="h6" gutterBottom>
+        🔍 המלצת רקע חכמה
+      </Typography>
+      <TextField
+        fullWidth
+        label="תאר את הקולאז' שאתה רוצה"
+        variant="outlined"
+        value={prompt}
+        onChange={(e) => setPrompt(e.target.value)}
+        disabled={loading}
+        multiline
+      />
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleSend}
+        disabled={loading || !prompt.trim()}
+        sx={{ mt: 2 }}
+      >
+        שלח
+      </Button>
+      {response && (
+        <Paper elevation={3} sx={{ mt: 3, p: 2, backgroundColor: '#f5f5f5' }}>
+          <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+            ההמלצה:
+          </Typography>
+          <Typography>{response}</Typography>
+        </Paper>
       )}
-    </div>
+    </Box>
   );
-}
+};
+
+export default BackgroundRecommenderChat;

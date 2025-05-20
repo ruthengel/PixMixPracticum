@@ -4,7 +4,8 @@ import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import { useNavigate } from "react-router-dom";
-import ChatBot from "./ChatBot";
+// import ChatBot from "./BackgroundRecommenderChat";
+import BackgroundRecommenderChat from "./BackgroundRecommenderChat";
 const BackgroundSelector = () => {
     const backgrounds = [`images/backgrounds/color1.png`, 'images/backgrounds/color2.png', 'images/backgrounds/color3.png', 'images/backgrounds/color4.png', 'images/backgrounds/brown1.png', 'images/backgrounds/brown2.png', 'images/backgrounds/full1.png', 'images/backgrounds/full2.png', 'images/backgrounds/full3.png', 'images/backgrounds/green1.png', 'images/backgrounds/green2.png', 'images/backgrounds/memo1.png', 'images/backgrounds/memo2.png', 'images/backgrounds/memo3.png', 'images/backgrounds/empty.png'];
     // const backgrounds = [`/images/backgrounds/color1.png`, '/images/backgrounds/color2.png', '/images/backgrounds/color3.png', '/images/backgrounds/color4.png', '/images/backgrounds/brown1.png', '/images/backgrounds/brown2.png', '/images/backgrounds/full1.png', '/images/backgrounds/full2.png', '/images/backgrounds/full3.png', '/images/backgrounds/green1.png', '/images/backgrounds/green2.png', '/images/backgrounds/memo1.png', '/images/backgrounds/memo2.png', '/images/backgrounds/memo3.png', '/images/backgrounds/empty.png'];
@@ -58,7 +59,7 @@ const BackgroundSelector = () => {
                         sx={{ width: 70, height: 50, objectFit: "cover", borderRadius: 1, cursor: "pointer", border: index === currentIndex ? "3px solid grey" : "2px solid #ccc", opacity: index === currentIndex ? 1 : 0.7, transition: "border 0.2s, opacity 0.2s" }} />))}
             </Box>
 
-            <ChatBot />
+            <BackgroundRecommenderChat />
 
             <Dialog open={open} onClose={() => setOpen(false)} sx={{ '& .MuiDialog-paper': { width: '600px', height: '100px', borderRadius: '12px' } }}>
                 <DialogContent sx={{ textAlign: 'center', marginTop: 0 }} >
