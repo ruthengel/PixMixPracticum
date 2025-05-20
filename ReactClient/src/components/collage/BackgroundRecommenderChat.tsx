@@ -738,6 +738,8 @@ const BackgroundRecommenderChat = () => {
       if(result) 
         console.log("success")
       setResponse(result.data.reply);
+      console.log(response);
+      
     } catch (err) {
       console.log("error");      
       setResponse('אירעה שגיאה בשליחה לשרת.');
