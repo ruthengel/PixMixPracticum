@@ -737,11 +737,11 @@ const BackgroundRecommenderChat = () => {
         messages: [{ role: 'user', content: prompt }],
       });
       if (result)
-        console.log("success")
+        console.log("success") 
+      setResponse(result.data.reply);
       console.log("result: "+result);     
-      setResponse("result.data: "+result.data.reply);
-      console.log("result.data.reply: "+result.data.reply);
-
+      console.log("result.data: "+result.data.reply);     
+      console.log("result.data.reply :"+result.data.reply);    
     } catch (err) {
       console.log("error");
       setResponse('אירעה שגיאה בשליחה לשרת.');
