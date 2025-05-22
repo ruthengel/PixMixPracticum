@@ -94,6 +94,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Http;
 
 namespace PixMix.Api.Controllers
 {
@@ -122,8 +123,7 @@ namespace PixMix.Api.Controllers
         2. ""קלאסי לבן"" – רקע לבן עם מסגרת אפורה, מתאים ל-1-3 תמונות, סגנון אלגנטי.
         3. ""טבע ירוק"" – רקע עם עלים ועצים, מתאים בדיוק ל-2 תמונות, אווירה רגועה.
         4. ""מסיבת ילדים"" – רקע צבעוני עם בלונים, מתאים ל-3-6 תמונות, אווירה שמחה ועליזה.
-
-        //בהתאם לתיאור של המשתמש, המלץ על רקע מתאים מתוך הרשימה."
+        בהתאם לתיאור של המשתמש, המלץ על רקע מתאים מתוך הרשימה."
             };
 
             var messages = new List<ChatMessage> { systemMessage };
@@ -131,7 +131,7 @@ namespace PixMix.Api.Controllers
 
             var body = new
             {
-                model = "gpt-4o",
+                model = "gpt-4o-mini",
                 messages = messages
             };
 
@@ -140,8 +140,8 @@ namespace PixMix.Api.Controllers
                 Content = JsonContent.Create(body)
             };
 
-            req.Headers.Authorization = new AuthenticationHeaderValue("Bearer", Environment.GetEnvironmentVariable("OPENAI_API_KEY"));
-
+            //req.Headers.Authorization = new AuthenticationHeaderValue("Bearer", Environment.GetEnvironmentVariable("OPENAI_API_KEY"));
+            req.Headers.Add("Authorization", $"Bearer {Environment.GetEnvironmentVariable("OPENAI_API_KEY")}");
             var res = await _httpClient.SendAsync(req);
             if (!res.IsSuccessStatusCode)
                 return StatusCode((int)res.StatusCode, await res.Content.ReadAsStringAsync());
@@ -158,7 +158,25 @@ namespace PixMix.Api.Controllers
             Console.WriteLine(reply);
             return Ok(new { reply });
         }
-        //private readonly HttpClient client = new HttpClient();
+
+        public class ChatPromptRequest
+        {
+            [JsonPropertyName("messages")]
+            public List<ChatMessage> Messages { get; set; }
+        }
+
+        public class ChatMessage
+        {
+            [JsonPropertyName("role")]
+            public string Role { get; set; }
+
+            [JsonPropertyName("content")]
+            public string Content { get; set; }
+        }
+    }
+}
+
+ //private readonly HttpClient client = new HttpClient();
 
         //[HttpPost]
         //public async Task<IActionResult> Post([FromBody] ChatPromptRequest request)
@@ -201,20 +219,6 @@ namespace PixMix.Api.Controllers
         //        return StatusCode(500, "אירעה שגיאה בעיבוד הבקשה.");
         //    }
         //}
-    }
+    
+    
 
-    public class ChatPromptRequest
-    {
-        [JsonPropertyName("messages")]
-        public List<ChatMessage> Messages { get; set; }
-    }
-
-    public class ChatMessage
-    {
-        [JsonPropertyName("role")]
-        public string Role { get; set; }
-
-        [JsonPropertyName("content")]
-        public string Content { get; set; }
-    }
-}
