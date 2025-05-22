@@ -138,6 +138,7 @@ namespace PixMix.Api.Controllers
                     .GetProperty("message")
                     .GetProperty("content")
                     .GetString();
+                Console.WriteLine(content);
 
                 return Ok(new { reply = content });
             }
@@ -150,7 +151,7 @@ namespace PixMix.Api.Controllers
 
 
 
-
+        
 
 
         //    private readonly HttpClient _httpClient;
