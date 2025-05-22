@@ -843,7 +843,7 @@ export default function BackgroundRecommenderChat() {
       setLoading(true);
       setShowTypingIndicator(true);
       try {
-        const response = await axios.post(`${apiUrl}/api/PromptSuggestions`, {
+        const response = await axios.post(`${apiUrl}/api/ChatBot`, {
           messages: [...chat, { role, content }]
         });
 
