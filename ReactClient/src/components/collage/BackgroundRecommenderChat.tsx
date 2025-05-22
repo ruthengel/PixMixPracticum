@@ -118,7 +118,7 @@
 //         const response = await axios.post(`${apiUrl}/api/ChatBot`, {
 //           messages: [...chat, { role, content }]
 //         });
-        
+
 //         setTimeout(() => {
 //           setShowTypingIndicator(false);
 //           const botReply = response.data.reply;
@@ -292,7 +292,7 @@
 //                 <CloseIcon fontSize="small" />
 //               </IconButton>
 //             </Box>
-            
+
 //             {/* Challenge Info Banner */}
 //             <Box sx={{ 
 //               p: 2, 
@@ -419,7 +419,7 @@
 //                   </Box>
 //                 </ListItem>
 //               ))}
-              
+
 //               {showTypingIndicator && (
 //                 <ListItem sx={{ p: 0, justifyContent: "flex-start" }}>
 //                   <Box sx={{ display: 'flex', gap: 1.2, alignItems: 'flex-end' }}>
@@ -569,12 +569,12 @@
 //   // Check if the content has numbered ideas like "1.", "2.", etc.
 //   const lines = content.split('\n');
 //   const numberedPattern = /^\d+\.\s/;
-  
+
 //   // If there are no numbered lines, return the content as is
 //   if (!lines.some(line => numberedPattern.test(line))) {
 //     return content;
 //   }
-  
+
 //   // Process the text to properly format numbered ideas
 //   return lines.map((line, index) => {
 //     const match = line.match(numberedPattern);
@@ -719,7 +719,8 @@
 //     </div>
 //   );
 // }
-import  { useState } from 'react';
+
+import { useState } from 'react';
 import axios from 'axios';
 import { TextField, Button, Box, Typography, Paper } from '@mui/material';
 
@@ -735,13 +736,14 @@ const BackgroundRecommenderChat = () => {
       const result = await axios.post('/api/ChatBot', {
         messages: [{ role: 'user', content: prompt }],
       });
-      if(result) 
+      if (result)
         console.log("success")
-      setResponse(result.data.reply);
-      console.log(result.data.reply);
-      
+      console.log("result: "+result);     
+      setResponse("result.data: "+result.data.reply);
+      console.log("result.data.reply: "+result.data.reply);
+
     } catch (err) {
-      console.log("error");      
+      console.log("error");
       setResponse('אירעה שגיאה בשליחה לשרת.');
     } finally {
       setLoading(false);
