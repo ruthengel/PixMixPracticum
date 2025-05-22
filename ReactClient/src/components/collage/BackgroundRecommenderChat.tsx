@@ -723,7 +723,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { TextField, Button, Box, Typography, Paper } from '@mui/material';
-
+const myUrl = import.meta.env.VITE_SERVERURL
 const BackgroundRecommenderChat = () => {
   const [prompt, setPrompt] = useState('');
   const [response, setResponse] = useState('');
@@ -733,7 +733,7 @@ const BackgroundRecommenderChat = () => {
     if (!prompt.trim()) return;
     setLoading(true);
     try {
-      const result = await axios.post('/api/ChatBot', {
+      const result = await axios.post(`${myUrl}/api/ChatBot`, {
         messages: [{ role: 'user', content: prompt }],
       });
       if (result)
