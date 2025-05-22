@@ -147,12 +147,15 @@ namespace PixMix.Api.Controllers
                 return StatusCode((int)res.StatusCode, await res.Content.ReadAsStringAsync());
 
             var json = await res.Content.ReadAsStringAsync();
+            Console.WriteLine(">> JSON response from OpenAI:");
+            Console.WriteLine(json);
             var reply = JsonDocument.Parse(json).RootElement
                 .GetProperty("choices")[0]
                 .GetProperty("message")
                 .GetProperty("content")
                 .GetString();
-
+            Console.WriteLine(">> Extracted reply:");
+            Console.WriteLine(reply);
             return Ok(new { reply });
         }
     }
