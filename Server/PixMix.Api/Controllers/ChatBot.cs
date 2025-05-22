@@ -140,7 +140,7 @@ namespace PixMix.Api.Controllers
                 Content = JsonContent.Create(body)
             };
 
-            req.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _configuration["OpenAI:ApiKey"]);
+            req.Headers.Authorization = new AuthenticationHeaderValue("Bearer", Environment.GetEnvironmentVariable("OPENAI_API_KEY"));
 
             var res = await _httpClient.SendAsync(req);
             if (!res.IsSuccessStatusCode)
