@@ -791,49 +791,73 @@
 
 // ChatWidget.tsx
 import { useState } from 'react';
+import axios from 'axios';
 import {
-  Box,
-  IconButton,
-  Paper,
   TextField,
-  Button,
+  IconButton,
+  Box,
   Typography,
-  Fade,
+  Paper,
+  Slide,
+  Button,
 } from '@mui/material';
 import ChatIcon from '@mui/icons-material/Chat';
-import CloseIcon from '@mui/icons-material/Close';
-import axios from 'axios';
 
 const myUrl = import.meta.env.VITE_SERVERURL;
 
-const ChatWidget = () => {
-  const [open, setOpen] = useState(false);
+const BackgroundRecommenderChat = () => {
   const [prompt, setPrompt] = useState('');
+  const [messages, setMessages] = useState<
+    { role: 'user' | 'bot'; content: string }[]
+  >([]);
+  const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [messages, setMessages] = useState<{ role: 'user' | 'bot'; content: string }[]>([]);
 
   const toggleChat = () => {
-    setOpen(!open);
+    setOpen((prev) => {
+      // אם פותחים לראשונה - הוסף הודעת פתיחה מהבוט
+      if (!prev && messages.length === 0) {
+        setMessages([
+          {
+            role: 'bot',
+            content:
+              'היי! 😊 אני יכול לעזור לך לבחור תבנית רקע מתאימה לקולאז׳.\nפשוט תכתוב כמה תמונות יש לך ומה הסגנון שאתה רוצה (למשל צבעוני, רטרו, מודרני...)',
+          },
+        ]);
+      }
+      return !prev;
+    });
   };
 
   const handleSend = async () => {
     if (!prompt.trim()) return;
-    const userMessage = { role: 'user' as const, content: prompt };
+    const userMessage = {
+      role: 'user' as const,
+      content: prompt,
+    };
+
     setMessages((prev) => [...prev, userMessage]);
     setPrompt('');
     setLoading(true);
+
     try {
       const result = await axios.post(`${myUrl}/api/ChatBot`, {
         messages: [{ role: 'user', content: prompt }],
       });
-      setMessages((prev) => [
-        ...prev,
-        { role: 'bot', content: result.data.reply || 'לא התקבלה תגובה.' },
-      ]);
+
+      const botMessage = {
+        role: 'bot' as const,
+        content: result.data.reply || 'לא התקבלה תגובה.',
+      };
+
+      setMessages((prev) => [...prev, botMessage]);
     } catch (err) {
       setMessages((prev) => [
         ...prev,
-        { role: 'bot', content: 'אירעה שגיאה בשליחה לשרת.' },
+        {
+          role: 'bot',
+          content: '❌ אירעה שגיאה בשליחה לשרת.',
+        },
       ]);
     } finally {
       setLoading(false);
@@ -842,95 +866,114 @@ const ChatWidget = () => {
 
   return (
     <>
-      {/* כפתור הצ'אט בצד שמאל למטה */}
-      <Box
+      {/* כפתור הצ׳אט הצף */}
+      <IconButton
+        onClick={toggleChat}
         sx={{
           position: 'fixed',
           bottom: 20,
           left: 20,
-          zIndex: 1300,
+          backgroundColor: '#1976d2',
+          color: 'white',
+          '&:hover': {
+            backgroundColor: '#115293',
+          },
+          zIndex: 1000,
         }}
       >
-        <IconButton onClick={toggleChat} color="primary" sx={{ bgcolor: 'white', boxShadow: 3 }}>
-          {open ? <CloseIcon /> : <ChatIcon />}
-        </IconButton>
-      </Box>
+        <ChatIcon />
+      </IconButton>
 
-      {/* חלון הצ'אט עצמו */}
-      <Fade in={open}>
+      {/* הצ׳אט עצמו */}
+      <Slide direction="up" in={open} mountOnEnter unmountOnExit>
         <Paper
           elevation={4}
           sx={{
             position: 'fixed',
             bottom: 80,
             left: 20,
-            width: 320,
-            height: 420,
+            width: 350,
+            maxHeight: 500,
+            p: 2,
             display: 'flex',
             flexDirection: 'column',
-            p: 1,
-            zIndex: 1301,
+            gap: 1,
+            overflow: 'hidden',
+            zIndex: 1000,
           }}
         >
-          <Typography variant="h6" align="center" gutterBottom>
-            🤖 צ'אט המלצת רקע
-          </Typography>
-
-          {/* הודעות */}
           <Box
             sx={{
               flexGrow: 1,
               overflowY: 'auto',
-              mb: 1,
-              px: 1,
               display: 'flex',
               flexDirection: 'column',
               gap: 1,
             }}
           >
-            {messages.map((msg, i) => (
+            {messages.map((msg, idx) => (
               <Box
-                key={i}
+                key={idx}
                 sx={{
                   alignSelf: msg.role === 'user' ? 'flex-end' : 'flex-start',
-                  bgcolor: msg.role === 'user' ? '#1976d2' : '#f1f1f1',
-                  color: msg.role === 'user' ? 'white' : 'black',
-                  px: 2,
-                  py: 1,
-                  borderRadius: 3,
+                  backgroundColor: msg.role === 'user' ? '#1976d2' : '#f0f0f0',
+                  color: msg.role === 'user' ? '#fff' : '#000',
+                  borderRadius: 2,
+                  p: 1.2,
+                  maxWidth: '80%',
+                  whiteSpace: 'pre-line',
+                }}
+              >
+                {msg.content}
+              </Box>
+            ))}
+            {loading && (
+              <Box
+                sx={{
+                  alignSelf: 'flex-start',
+                  backgroundColor: '#f0f0f0',
+                  borderRadius: 2,
+                  p: 1.2,
                   maxWidth: '80%',
                 }}
               >
-                <Typography variant="body2">{msg.content}</Typography>
+                <Typography
+                  sx={{ fontSize: '1.2em', letterSpacing: '2px' }}
+                >
+                  ...
+                </Typography>
               </Box>
-            ))}
+            )}
           </Box>
 
-          {/* שורת כתיבה */}
           <Box sx={{ display: 'flex', gap: 1 }}>
             <TextField
-              fullWidth
               variant="outlined"
-              size="small"
-              placeholder="תאר את הקולאז'"
+              placeholder="תאר את הקולאז׳ שלך..."
+              fullWidth
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               onKeyDown={(e) => {
-                if (e.key === 'Enter' && !loading) handleSend();
+                if (e.key === 'Enter') handleSend();
               }}
               disabled={loading}
+              size="small"
             />
-            <Button variant="contained" onClick={handleSend} disabled={loading || !prompt.trim()}>
+            <Button
+              onClick={handleSend}
+              variant="contained"
+              disabled={!prompt.trim() || loading}
+            >
               שלח
             </Button>
           </Box>
         </Paper>
-      </Fade>
+      </Slide>
     </>
   );
 };
 
-export default ChatWidget;
+export default BackgroundRecommenderChat;
 
 
 
