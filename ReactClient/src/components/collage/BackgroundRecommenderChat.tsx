@@ -976,10 +976,9 @@
 // export default BackgroundRecommenderChat;
 
 
-
 "use client"
 
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import axios from "axios"
 import { TextField, IconButton, Box, Typography, Paper, Slide, Avatar } from "@mui/material"
 import ChatIcon from "@mui/icons-material/Chat"
@@ -995,6 +994,16 @@ const BackgroundRecommenderChat = () => {
   const [messages, setMessages] = useState<{ role: "user" | "bot"; content: string }[]>([])
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
+
+  const messagesEndRef = useRef<HTMLDivElement>(null)
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [messages])
 
   const toggleChat = () => {
     setOpen((prev) => {
@@ -1070,7 +1079,7 @@ const BackgroundRecommenderChat = () => {
           zIndex: 1000,
         }}
       >
-        <ChatIcon sx={{ fontSize: 28 }} />
+        {open ? <CloseIcon sx={{ fontSize: 28 }} /> : <ChatIcon sx={{ fontSize: 28 }} />}
       </IconButton>
 
       {/* הצ׳אט עצמו */}
@@ -1167,8 +1176,8 @@ const BackgroundRecommenderChat = () => {
               >
                 <Avatar
                   sx={{
-                    bgcolor: msg.role === "user" ? "#8B3DFF" : "#f1f5f9",
-                    color: msg.role === "user" ? "white" : "#8B3DFF",
+                    bgcolor: msg.role === "user" ? "#f8fafc" : "#f1f5f9",
+                    color: msg.role === "user" ? "#8B3DFF" : "#8B3DFF",
                     width: 32,
                     height: 32,
                     fontSize: "14px",
@@ -1250,6 +1259,7 @@ const BackgroundRecommenderChat = () => {
                 </Box>
               </Box>
             )}
+            <div ref={messagesEndRef} />
           </Box>
 
           {/* Input Area */}
