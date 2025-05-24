@@ -1125,7 +1125,7 @@ const BackgroundRecommenderChat = () => {
                 <SmartToyIcon sx={{ fontSize: 18 }} />
               </Avatar>
               <Typography variant="h6" sx={{ fontWeight: 600, fontSize: "1.1rem" }}>
-                עוזר הקולאז׳
+                PixBot
               </Typography>
             </Box>
             {/* <IconButton
