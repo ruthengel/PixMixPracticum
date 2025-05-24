@@ -720,73 +720,217 @@
 //   );
 // }
 
+
+
+// import { useState } from 'react';
+// import axios from 'axios';
+// import { TextField, Button, Box, Typography, Paper } from '@mui/material';
+// const myUrl = import.meta.env.VITE_SERVERURL
+// const BackgroundRecommenderChat = () => {
+//   const [prompt, setPrompt] = useState('');
+//   const [response, setResponse] = useState('');
+//   const [loading, setLoading] = useState(false);
+
+//   const handleSend = async () => {
+//     if (!prompt.trim()) return;
+//     setLoading(true);
+//     try {
+//       const result = await axios.post(`${myUrl}/api/ChatBot`, {
+//         messages: [{ role: 'user', content: prompt }],
+//       });
+//       if (result)
+//         console.log("success") 
+//       setResponse(result.data.reply);
+//       console.log("result: ",result);     
+//       console.log("result.data: ",result.data);     
+//       console.log("result.data.reply :",result.data.reply);    
+//     } catch (err) {
+//       console.log("error");
+//       setResponse('אירעה שגיאה בשליחה לשרת.');
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   return (
+//     <Box sx={{ maxWidth: 600, margin: '0 auto', mt: 4, p: 2 }}>
+//       <Typography variant="h6" gutterBottom>
+//         🔍 המלצת רקע חכמה
+//       </Typography>
+//       <TextField
+//         fullWidth
+//         label="תאר את הקולאז' שאתה רוצה"
+//         variant="outlined"
+//         value={prompt}
+//         onChange={(e) => setPrompt(e.target.value)}
+//         disabled={loading}
+//         multiline
+//       />
+//       <Button
+//         variant="contained"
+//         color="primary"
+//         onClick={handleSend}
+//         disabled={loading || !prompt.trim()}
+//         sx={{ mt: 2 }}
+//       >
+//         שלח
+//       </Button>
+//       {response && (
+//         <Paper elevation={3} sx={{ mt: 3, p: 2, backgroundColor: '#f5f5f5' }}>
+//           <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+//             ההמלצה:
+//           </Typography>
+//           <Typography>{response}</Typography>
+//         </Paper>
+//       )}
+//     </Box>
+//   );
+// };
+
+// export default BackgroundRecommenderChat;
+
+// ChatWidget.tsx
 import { useState } from 'react';
+import {
+  Box,
+  IconButton,
+  Paper,
+  TextField,
+  Button,
+  Typography,
+  Fade,
+} from '@mui/material';
+import ChatIcon from '@mui/icons-material/Chat';
+import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
-import { TextField, Button, Box, Typography, Paper } from '@mui/material';
-const myUrl = import.meta.env.VITE_SERVERURL
-const BackgroundRecommenderChat = () => {
+
+const myUrl = import.meta.env.VITE_SERVERURL;
+
+const ChatWidget = () => {
+  const [open, setOpen] = useState(false);
   const [prompt, setPrompt] = useState('');
-  const [response, setResponse] = useState('');
   const [loading, setLoading] = useState(false);
+  const [messages, setMessages] = useState<{ role: 'user' | 'bot'; content: string }[]>([]);
+
+  const toggleChat = () => {
+    setOpen(!open);
+  };
 
   const handleSend = async () => {
     if (!prompt.trim()) return;
+    const userMessage = { role: 'user' as const, content: prompt };
+    setMessages((prev) => [...prev, userMessage]);
+    setPrompt('');
     setLoading(true);
     try {
       const result = await axios.post(`${myUrl}/api/ChatBot`, {
         messages: [{ role: 'user', content: prompt }],
       });
-      if (result)
-        console.log("success") 
-      setResponse(result.data.reply);
-      console.log("result: ",result);     
-      console.log("result.data: ",result.data);     
-      console.log("result.data.reply :",result.data.reply);    
+      setMessages((prev) => [
+        ...prev,
+        { role: 'bot', content: result.data.reply || 'לא התקבלה תגובה.' },
+      ]);
     } catch (err) {
-      console.log("error");
-      setResponse('אירעה שגיאה בשליחה לשרת.');
+      setMessages((prev) => [
+        ...prev,
+        { role: 'bot', content: 'אירעה שגיאה בשליחה לשרת.' },
+      ]);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <Box sx={{ maxWidth: 600, margin: '0 auto', mt: 4, p: 2 }}>
-      <Typography variant="h6" gutterBottom>
-        🔍 המלצת רקע חכמה
-      </Typography>
-      <TextField
-        fullWidth
-        label="תאר את הקולאז' שאתה רוצה"
-        variant="outlined"
-        value={prompt}
-        onChange={(e) => setPrompt(e.target.value)}
-        disabled={loading}
-        multiline
-      />
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleSend}
-        disabled={loading || !prompt.trim()}
-        sx={{ mt: 2 }}
+    <>
+      {/* כפתור הצ'אט בצד שמאל למטה */}
+      <Box
+        sx={{
+          position: 'fixed',
+          bottom: 20,
+          left: 20,
+          zIndex: 1300,
+        }}
       >
-        שלח
-      </Button>
-      {response && (
-        <Paper elevation={3} sx={{ mt: 3, p: 2, backgroundColor: '#f5f5f5' }}>
-          <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
-            ההמלצה:
+        <IconButton onClick={toggleChat} color="primary" sx={{ bgcolor: 'white', boxShadow: 3 }}>
+          {open ? <CloseIcon /> : <ChatIcon />}
+        </IconButton>
+      </Box>
+
+      {/* חלון הצ'אט עצמו */}
+      <Fade in={open}>
+        <Paper
+          elevation={4}
+          sx={{
+            position: 'fixed',
+            bottom: 80,
+            left: 20,
+            width: 320,
+            height: 420,
+            display: 'flex',
+            flexDirection: 'column',
+            p: 1,
+            zIndex: 1301,
+          }}
+        >
+          <Typography variant="h6" align="center" gutterBottom>
+            🤖 צ'אט המלצת רקע
           </Typography>
-          <Typography>{response}</Typography>
+
+          {/* הודעות */}
+          <Box
+            sx={{
+              flexGrow: 1,
+              overflowY: 'auto',
+              mb: 1,
+              px: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 1,
+            }}
+          >
+            {messages.map((msg, i) => (
+              <Box
+                key={i}
+                sx={{
+                  alignSelf: msg.role === 'user' ? 'flex-end' : 'flex-start',
+                  bgcolor: msg.role === 'user' ? '#1976d2' : '#f1f1f1',
+                  color: msg.role === 'user' ? 'white' : 'black',
+                  px: 2,
+                  py: 1,
+                  borderRadius: 3,
+                  maxWidth: '80%',
+                }}
+              >
+                <Typography variant="body2">{msg.content}</Typography>
+              </Box>
+            ))}
+          </Box>
+
+          {/* שורת כתיבה */}
+          <Box sx={{ display: 'flex', gap: 1 }}>
+            <TextField
+              fullWidth
+              variant="outlined"
+              size="small"
+              placeholder="תאר את הקולאז'"
+              value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !loading) handleSend();
+              }}
+              disabled={loading}
+            />
+            <Button variant="contained" onClick={handleSend} disabled={loading || !prompt.trim()}>
+              שלח
+            </Button>
+          </Box>
         </Paper>
-      )}
-    </Box>
+      </Fade>
+    </>
   );
 };
 
-export default BackgroundRecommenderChat;
-
+export default ChatWidget;
 
 
 
