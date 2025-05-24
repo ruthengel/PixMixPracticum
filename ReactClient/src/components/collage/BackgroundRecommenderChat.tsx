@@ -1176,8 +1176,9 @@ const BackgroundRecommenderChat = () => {
               >
                 <Avatar
                   sx={{
-                    bgcolor: msg.role === "user" ? "#f8fafc" : "#f1f5f9",
-                    color: msg.role === "user" ? "#8B3DFF" : "#8B3DFF",
+                    bgcolor:  "#f1f5f9",
+                    // bgcolor: msg.role === "user" ? "#f8fafc" : "#f1f5f9",
+                    color: "#8B3DFF",
                     width: 32,
                     height: 32,
                     fontSize: "14px",
