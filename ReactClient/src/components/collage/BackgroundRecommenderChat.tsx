@@ -1128,7 +1128,7 @@ const BackgroundRecommenderChat = () => {
                 עוזר הקולאז׳
               </Typography>
             </Box>
-            <IconButton
+            {/* <IconButton
               onClick={toggleChat}
               sx={{
                 color: "white",
@@ -1139,7 +1139,7 @@ const BackgroundRecommenderChat = () => {
               size="small"
             >
               <CloseIcon />
-            </IconButton>
+            </IconButton> */}
           </Box>
 
           {/* Messages Area */}
