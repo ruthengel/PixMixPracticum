@@ -1067,8 +1067,8 @@ const BackgroundRecommenderChat = () => {
           right: 20,
           background: "white",
           color: "#8B3DFF",
-          width: 52,
-          height: 52,
+          width: 51,
+          height: 51,
           boxShadow: "3",
           "&:hover": {
             background: "#8B3DFF",
@@ -1118,7 +1118,7 @@ const BackgroundRecommenderChat = () => {
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
               <Avatar
                 sx={{
-                  bgcolor: "linear-gradient(270deg, #7D2AE8, #00A0A8)",
+                  bgcolor: "rgba(255, 255, 255, 0.2)",
                   width: 32,
                   height: 32,
                 }}
