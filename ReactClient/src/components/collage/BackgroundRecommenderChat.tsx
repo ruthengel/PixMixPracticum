@@ -1067,12 +1067,15 @@ const BackgroundRecommenderChat = () => {
           left: 20,
           background: "white",
           color: "#8B3DFF",
-          width: 50,
-          height: 50,
+          width: 55,
+          height: 55,
           boxShadow: "3",
+          // bottom: 85, 
+          marginBottom:145,
+          right: 20,
           "&:hover": {
             background: "#8B3DFF",
-            color:'white',
+            color: 'white',
             transform: "scale(1.05)",
             boxShadow: "0 12px 40px rgba(139, 61, 255, 0.4)",
           },
@@ -1080,7 +1083,7 @@ const BackgroundRecommenderChat = () => {
           zIndex: 1000,
         }}
       >
-        {open ? <CloseIcon sx={{ fontSize: 28 }} /> : <ChatIcon sx={{ fontSize: 28 ,color: "#8B3DFF",}} />}
+        {open ? <CloseIcon sx={{ fontSize: 28 }} /> : <ChatIcon sx={{ fontSize: 28, color: "#8B3DFF", "&:hover": { color: 'white' } }} />}
       </IconButton>
 
       {/* הצ׳אט עצמו */}
@@ -1177,7 +1180,7 @@ const BackgroundRecommenderChat = () => {
               >
                 <Avatar
                   sx={{
-                    bgcolor:  "#f1f5f9",
+                    bgcolor: "#f1f5f9",
                     // bgcolor: msg.role === "user" ? "#f8fafc" : "#f1f5f9",
                     color: "#8B3DFF",
                     width: 32,
@@ -1606,7 +1609,7 @@ export default BackgroundRecommenderChat
 //                 fontFamily: '"Poppins", "Roboto", sans-serif',
 //                 letterSpacing: '0.2px'
 //               }}>
-//                 <span style={{ fontWeight: 600, color: '#eee' }}>Current Challenge:</span> 
+//                 <span style={{ fontWeight: 600, color: '#eee' }}>Current Challenge:</span>
 //               </Typography>
 //             </Box>
 
