@@ -1080,7 +1080,7 @@ const BackgroundRecommenderChat = () => {
           zIndex: 1000,
         }}
       >
-        {open ? <CloseIcon sx={{ fontSize: 28 }} /> : <ChatIcon sx={{ fontSize: 28 }} />}
+        {open ? <CloseIcon sx={{ fontSize: 28 }} /> : <ChatIcon sx={{ fontSize: 28 ,color: "#8B3DFF",}} />}
       </IconButton>
 
       {/* הצ׳אט עצמו */}
