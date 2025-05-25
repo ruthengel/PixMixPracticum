@@ -1067,8 +1067,8 @@ const BackgroundRecommenderChat = () => {
           right: 20,
           background: "white",
           color: "#8B3DFF",
-          width: 47,
-          height: 47,
+          width: 49,
+          height: 49,
           boxShadow: "3",
           "&:hover": {
             background: "#8B3DFF",
