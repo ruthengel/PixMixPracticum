@@ -1063,16 +1063,13 @@ const BackgroundRecommenderChat = () => {
         onClick={toggleChat}
         sx={{
           position: "fixed",
-          bottom: 20,
-          left: 20,
+          bottom: 145, 
+          right: 20,
           background: "white",
           color: "#8B3DFF",
           width: 55,
           height: 55,
           boxShadow: "3",
-          // marginBottom:145,
-          right: 20,
-          // bottom: 85, 
           "&:hover": {
             background: "#8B3DFF",
             color: 'white',
