@@ -1089,7 +1089,7 @@ const BackgroundRecommenderChat = () => {
           elevation={0}
           sx={{
             position: "fixed",
-            bottom: 130,
+            bottom: 140,
             right: 20,
             width: 380,
             height: 520,
