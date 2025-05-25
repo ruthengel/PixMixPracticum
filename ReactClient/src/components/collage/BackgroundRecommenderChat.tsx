@@ -1063,7 +1063,7 @@ const BackgroundRecommenderChat = () => {
         onClick={toggleChat}
         sx={{
           position: "fixed",
-          bottom: 145, 
+          bottom: 85, 
           right: 20,
           background: "white",
           color: "#8B3DFF",
@@ -1080,7 +1080,7 @@ const BackgroundRecommenderChat = () => {
           zIndex: 1000,
         }}
       >
-        {open ? <CloseIcon sx={{ fontSize: 28 }} /> : <ChatIcon sx={{ fontSize: 28, color: "#8B3DFF", "&:hover": { color: 'white' } }} />}
+        {open ? <CloseIcon  fontSize="large"/> : <ChatIcon sx={{ fontSize: "large", color: "#8B3DFF", "&:hover": { color: 'white' } }} />}
       </IconButton>
 
       {/* הצ׳אט עצמו */}
