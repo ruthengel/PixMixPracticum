@@ -1090,7 +1090,7 @@ const BackgroundRecommenderChat = () => {
           sx={{
             position: "fixed",
             bottom: 90,
-            left: 20,
+            right: 20,
             width: 380,
             height: 520,
             borderRadius: "20px",
