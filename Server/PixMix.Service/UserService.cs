@@ -94,6 +94,10 @@ namespace PixMix.Service
             return true;
         }
 
+        public async Task<List<DateTime>> GetRegistrationDatesAsync()
+        {
+            return await _userRepository.GetRegistrationDatesAsync();
+        }
         public string GenerateJwtToken(int userId, string username, string email, string role)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_KEY")));

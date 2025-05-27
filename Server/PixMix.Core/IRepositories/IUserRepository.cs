@@ -15,5 +15,6 @@ namespace PixMix.Core.IRepositories
         Task<User> AddAsync(User user);
         Task<User> UpdateAsync(User user);
         Task DeleteAsync(User user);
+        Task<List<DateTime>> GetRegistrationDatesAsync();
     }
 }

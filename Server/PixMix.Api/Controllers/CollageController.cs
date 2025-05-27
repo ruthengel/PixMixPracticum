@@ -38,7 +38,6 @@ namespace PixMix.Api.Controllers
             {
                 return NotFound("No collages found.");
             }
-
             return Ok(collages);
         }
 

@@ -16,5 +16,6 @@ namespace PixMix.Core.IServices
         Task<string> LoginUserAsync(UserLoginDTO userLoginDTO);
         Task<string> UpdateUserAsync(int id, UserUpdateDTO userUpdateDTO);
         Task<bool> DeleteUserAsync(int id);
+        Task<List<DateTime>> GetRegistrationDatesAsync();
     }
 }

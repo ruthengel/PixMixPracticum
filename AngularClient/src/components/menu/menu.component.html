@@ -6,9 +6,10 @@
             @if(!getFromSessionStorage('token')) {
             <a mat-button routerLink="login" routerLinkActive="active" class="nav-item sign-in">Sign-in</a>
             }
-            <!-- @if(getFromSessionStorage('token')){ -->
+            @if(getFromSessionStorage('token')){
             <a mat-button routerLink="userManagement" routerLinkActive="active" class="nav-item user-management">manage</a>
-            <!-- } -->
+            <a mat-button routerLink="analistycs" routerLinkActive="active" class="nav-item analistycs">analistycs</a>
+            }
         </div>
     </mat-toolbar>
 </nav>

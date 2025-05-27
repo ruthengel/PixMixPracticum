@@ -11,7 +11,6 @@ namespace PixMix.Core.Models
         public int Id { get; set; }
         public string ImageUrl { get; set; }
         public int CollageId { get; set; }
-        //public Collage Collage { get; set; }
         public int PositionX { get; set; }
         public int PositionY { get; set; }
         public int Width { get; set; }

@@ -4,7 +4,7 @@ export interface User {
   email: string;
   password: string;
   role: string;
-  createdAt: string; // Date מגיע כ-ISO string מהשרת
+  createdAt: string;
   collages: Collage[];
 }
 
@@ -29,14 +29,8 @@ export interface Collage {
   images: Image[];
 }
 
-export interface CreateUserRequest {
+export interface userAction {
   name: string
   email: string
-  status: "active" | "inactive"
-}
-
-export interface UpdateUserRequest {
-  name: string
-  email: string
-  status: "active" | "inactive"
+  password: string
 }

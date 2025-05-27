@@ -60,6 +60,11 @@ namespace PixMix.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
-
+        public async Task<List<DateTime>> GetRegistrationDatesAsync()
+        {
+            return await _context.Users
+                .Select(u => u.CreatedAt)
+                .ToListAsync();
+        }
     }
 }

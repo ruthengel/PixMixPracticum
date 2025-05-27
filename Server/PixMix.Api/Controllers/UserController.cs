@@ -85,9 +85,15 @@ namespace PixMix.Api.Controllers
             var result = await _userService.DeleteUserAsync(id);
             if (!result)
                 return NotFound(new { message = "User not found" });
-            return Ok(new { message = "User deleted successfully" });  // מחזירים הודעת הצלחה למחיקת המשתמש
+            return Ok(new { message = "User deleted successfully" });  
         }
 
+        [HttpGet("stats/registration-dates")]
+        public async Task<IActionResult> GetRegistrationDates()
+        {
+            var dates = await _userService.GetRegistrationDatesAsync();
+            return Ok(dates);  
+        }
 
     }
 }

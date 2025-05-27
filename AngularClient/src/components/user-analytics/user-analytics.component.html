@@ -1,0 +1,17 @@
+<!-- user-analytics.component.html -->
+<div class="charts-container">
+    <h2>התפלגות הרשמות משתמשים</h2>
+    <canvas baseChart
+            [datasets]="registrationChartData[0]?.datasets"
+            [labels]="registrationChartData[0]?.labels"
+            chartType="line">
+    </canvas>
+  
+    <!-- <h2>כמות קולאז'ים לפי תאריך</h2>
+    <canvas baseChart
+            [datasets]="collageChartData[0]?.datasets"
+            [labels]="collageChartData[0]?.labels"
+            chartType="bar">
+    </canvas> -->
+  </div>
+  

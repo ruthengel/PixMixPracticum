@@ -19,19 +19,21 @@ import { MatMenuModule } from "@angular/material/menu"
 import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { CommonModule, DatePipe } from '@angular/common';
 import { log } from "console"
+import { UserDialogComponent } from "../user-dialog/user-dialog.component"
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @Component({
   selector: "app-user-management",
   standalone: true,
-  imports: [ FormsModule, ReactiveFormsModule,MatPaginator, MatCardModule, MatIconModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatTooltipModule, MatDialogModule, MatSnackBarModule, MatTableModule, MatSortModule, MatMenuModule, MatChipsModule, MatProgressSpinnerModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatPaginator, MatCardModule, MatIconModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatTooltipModule, MatDialogModule, MatSnackBarModule, MatTableModule, MatSortModule, MatMenuModule, MatChipsModule, MatProgressSpinnerModule],
   templateUrl: "./user-management.component.html",
   styleUrls: ["./user-management.component.css"],
 })
 export class UserManagementComponent implements OnInit {
-  displayedColumns: string[] = ["name", "email", "joinDate", "status", "totalImages", "actions"]
+  displayedColumns: string[] = ["id", "name", "email", "password", "role", "createdAt", "actions"]
   dataSource = new MatTableDataSource<User>()
   isLoading = false
   searchControl = new FormControl("")
@@ -39,8 +41,7 @@ export class UserManagementComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator
   @ViewChild(MatSort) sort!: MatSort
 
-  constructor(private userService: UserService, private dialog: MatDialog, private snackBar: MatSnackBar,
-  ) { }
+  constructor(private userService: UserService, private dialog: MatDialog, private snackBar: MatSnackBar,) { }
 
   ngOnInit(): void {
     this.loadUsers()
@@ -53,84 +54,93 @@ export class UserManagementComponent implements OnInit {
   }
 
   setupSearch(): void {
-    this.searchControl.valueChanges.pipe(debounceTime(300), distinctUntilChanged()).subscribe((searchTerm) => {
-      this.loadUsers(searchTerm || "")
-    })
+    // this.searchControl.valueChanges.pipe(debounceTime(300), distinctUntilChanged()).subscribe((searchTerm) => {
+    //   this.loadUsers(searchTerm || "")
+    // })
+    this.searchControl.valueChanges.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe(searchTerm => {
+      const filterValue = (searchTerm || '').trim().toLowerCase();
+      this.dataSource.filter = filterValue;
+    });
+  
+    this.dataSource.filterPredicate = (user: User, filter: string) => {
+      return user.name.toLowerCase().includes(filter) || user.email.toLowerCase().includes(filter);
+    };
   }
 
   loadUsers(search?: string): void {
-    this.isLoading = true
+    this.isLoading = true;
     this.userService.getUsers(search).subscribe({
       next: (response) => {
-        console.log("response:");       
-        console.log(response);       
-        console.log("response.users:");       
-        console.log(response.users);       
-        this.dataSource.data = response.users
-        this.isLoading = false
+        this.dataSource = new MatTableDataSource<User>(response.users);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.isLoading = false;
       },
-      error: (error) => {
+      error: () => {
         this.snackBar.open("שגיאה בטעינת המשתמשים", "סגור", {
           duration: 3000,
           panelClass: ["error-snackbar"],
-        })
-        this.isLoading = false
+        });
+        this.isLoading = false;
       },
-    })
+    });
   }
 
   openAddDialog(): void {
-    // const dialogRef = this.dialog.open(UserDialogComponent, {
-    //   width: "500px",
-    //   data: { mode: "add" },
-    // })
+    const dialogRef = this.dialog.open(UserDialogComponent, {
+      width: "500px",
+      data: { mode: "add" },
+    })
 
-    // dialogRef.afterClosed().subscribe((result) => {
-    //   if (result) {
-    //     this.userService.createUser(result).subscribe({
-    //       next: (response) => {
-    //         this.loadUsers()
-    //         this.snackBar.open(`המשתמש ${response.user.name} נוסף בהצלחה`, "סגור", {
-    //           duration: 3000,
-    //           panelClass: ["success-snackbar"],
-    //         })
-    //       },
-    //       error: () => {
-    //         this.snackBar.open("שגיאה בהוספת המשתמש", "סגור", {
-    //           duration: 3000,
-    //           panelClass: ["error-snackbar"],
-    //         })
-    //       },
-    //     })
-    //   }
-    // })
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.userService.createUser(result).subscribe({
+          next: (response) => {
+            this.loadUsers()
+            this.snackBar.open(`המשתמש ${response.user.name} נוסף בהצלחה`, "סגור", {
+              duration: 3000,
+              panelClass: ["success-snackbar"],
+            })
+          },
+          error: () => {
+            this.snackBar.open("שגיאה בהוספת המשתמש", "סגור", {
+              duration: 3000,
+              panelClass: ["error-snackbar"],
+            })
+          },
+        })
+      }
+    })
   }
 
   openEditDialog(user: User): void {
-    // const dialogRef = this.dialog.open(UserDialogComponent, {
-    //   width: "500px",
-    //   data: { mode: "edit", user },
-    // })
+    const dialogRef = this.dialog.open(UserDialogComponent, {
+      width: "500px",
+      data: { mode: "edit", user },
+    })
 
-    // dialogRef.afterClosed().subscribe((result) => {
-    //   if (result) {
-    //     this.userService.updateUser(user.id, result).subscribe({
-    //       next: (response) => {
-    //         this.loadUsers()
-    //         this.snackBar.open(`המשתמש ${response.user.name} עודכן בהצלחה`, "סגור", {
-    //           duration: 3000,
-    //           panelClass: ["success-snackbar"],
-    //         })
-    //       },
-    //       error: () => {
-    //         this.snackBar.open("שגיאה בעדכון המשתמש", "סגור", {
-    //           duration: 3000,
-    //           panelClass: ["error-snackbar"],
-    //         })
-    //       },
-    //     })
-    //   }
-    // })
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.userService.updateUser(user.id, result).subscribe({
+          next: (response) => {
+            this.loadUsers()
+            this.snackBar.open(`המשתמש ${response.user.name} עודכן בהצלחה`, "סגור", {
+              duration: 3000,
+              panelClass: ["success-snackbar"],
+            })
+          },
+          error: () => {
+            this.snackBar.open("שגיאה בעדכון המשתמש", "סגור", {
+              duration: 3000,
+              panelClass: ["error-snackbar"],
+            })
+          },
+        })
+      }
+    })
   }
 
   deleteUser(user: User): void {
