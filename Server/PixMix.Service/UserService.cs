@@ -28,10 +28,11 @@ namespace PixMix.Service
             _configuration = configuration;
         }
 
-        public async Task<List<UserDTO>> GetAllUsersAsync()
+        public async Task<List<User>> GetAllUsersAsync()
         {
             var users = await _userRepository.GetAllAsync();
-            return _mapper.Map<List<UserDTO>>(users);
+            //return _mapper.Map<List<User>>(users);
+            return users;
         }
 
         public async Task<string> RegisterUserAsync(UserRegisterDTO userRegisterDTO)

@@ -14,6 +14,6 @@ import { MatMenuModule } from '@angular/material/menu';
 export class MenuComponent {
 
   getFromSessionStorage(key: string): string | null {
-    return sessionStorage.getItem(key)
+    return localStorage.getItem(key)
   }
 }

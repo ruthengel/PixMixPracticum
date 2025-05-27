@@ -1,12 +1,14 @@
 <nav class="navbar mat-elevation-z4">
     <mat-toolbar color="primary">
-        <div class="nav-links">           
+        <div class="nav-links">
             <a mat-button routerLink="" routerLinkActive="active" class="nav-item home">Home</a>
 
             @if(!getFromSessionStorage('token')) {
             <a mat-button routerLink="login" routerLinkActive="active" class="nav-item sign-in">Sign-in</a>
             }
-
+            <!-- @if(getFromSessionStorage('token')){ -->
+            <a mat-button routerLink="userManagement" routerLinkActive="active" class="nav-item user-management">manage</a>
+            <!-- } -->
         </div>
     </mat-toolbar>
 </nav>

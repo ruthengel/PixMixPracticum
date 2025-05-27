@@ -25,7 +25,7 @@ namespace PixMix.Api.Controllers
             var users = await _userService.GetAllUsersAsync();
             if (users.Count == 0)
                 return Ok(new { message = "No users found. The system currently has no registered users." });
-            return Ok(users);
+            return Ok(new { users = users });
         }
 
 
@@ -73,7 +73,7 @@ namespace PixMix.Api.Controllers
             {
                 return NotFound(new { message = "User not found" });
             }
-            return Ok(new {token= result ,message= "User updated successfully." });
+            return Ok(new { token = result, message = "User updated successfully." });
 
         }
 

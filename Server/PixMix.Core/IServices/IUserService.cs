@@ -1,4 +1,5 @@
-﻿using PixMix.Core.ModelsDTO;
+﻿using PixMix.Core.Models;
+using PixMix.Core.ModelsDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace PixMix.Core.IServices
 {
     public interface IUserService
     {
-        Task<List<UserDTO>> GetAllUsersAsync();
+        Task<List<User>> GetAllUsersAsync();
         Task<UserDTO> GetUserByIdAsync(int id);
         Task<string> RegisterUserAsync(UserRegisterDTO userRegisterDTO);
         Task<string> LoginUserAsync(UserLoginDTO userLoginDTO);

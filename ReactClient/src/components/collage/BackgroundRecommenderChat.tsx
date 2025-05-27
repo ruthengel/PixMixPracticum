@@ -1058,7 +1058,6 @@ const BackgroundRecommenderChat = () => {
 
   return (
     <>
-      {/* כפתור הצ׳אט הצף */}
       <IconButton
         onClick={toggleChat}
         sx={{
@@ -1103,7 +1102,6 @@ const BackgroundRecommenderChat = () => {
             zIndex: 1000,
           }}
         >
-          {/* Header */}
           <Box
             sx={{
               background: "linear-gradient(135deg, #8B3DFF 0%, #A855F7 100%)",

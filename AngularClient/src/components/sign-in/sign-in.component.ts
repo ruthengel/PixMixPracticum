@@ -10,6 +10,15 @@ import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+// import jwt_decode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
+import { AuthService } from '../../services/auth-service/auth.service';
+
+interface DecodedToken {
+  role: string;
+  [key: string]: any;
+}
+
 
 @Component({
   selector: 'app-sign-in',
@@ -18,9 +27,11 @@ import { MatSelectModule } from '@angular/material/select';
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.css']
 })
+
 export class SignInComponent {
+
   loginForm!: FormGroup
-  constructor(private userService: UserService, private fb: FormBuilder, private Router: Router) { }
+  constructor(private authService: AuthService, private fb: FormBuilder, private Router: Router) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group(
@@ -37,12 +48,20 @@ export class SignInComponent {
 
   logIn() {
     this.Router.navigate(['/']);
-    this.userService.logIn(this.loginForm.value).subscribe({
+    this.authService.logIn(this.loginForm.value).subscribe({
       next: (response) => {
-        this.userService.saveToken(response.token)
-        alert(response.messege)
+        const decoded: any = jwtDecode(response.token);
+        const role = decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+        console.log(decoded);
+        console.log(role);     
+        if (role === 'Admin') {
+          this.authService.saveToken(response.token)
+          alert(response.messege)
+        }
+        else
+        alert(`You don't have match permission!`)
       },
-      error:(e)=>{alert(e.error.messege)}
+      error: (e) => { alert(e.error.messege) }
     })
   }
 }
