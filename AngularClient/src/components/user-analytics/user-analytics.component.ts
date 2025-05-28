@@ -4,6 +4,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../environments/environment.prod';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { AuthService } from '../../services/auth-service/auth.service';
 @Component({
   selector: 'app-user-analytics',
   standalone: true,
@@ -16,17 +17,18 @@ export class UserAnalyticsComponent implements OnInit {
   registrationChartData: any[] = [];
   collageChartData: any[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.loadUserRegistrations();
   }
 
   loadUserRegistrations() {
-    this.http.get<Date[]>(`${environment.apiUrl}/User/stats/registration-dates`).subscribe(dates => {
-      const grouped = this.groupByDate(dates.map(d => new Date(d)));
-      this.registrationChartData = this.convertToChartData(grouped);
-    });
+    this.http.get<Date[]>(`${environment.apiUrl}/User/stats/registration-dates`, { headers: { Authorization: `Bearer ${this.authService.getToken()}` } })
+      .subscribe(dates => {
+        const grouped = this.groupByDate(dates.map(d => new Date(d)));
+        this.registrationChartData = this.convertToChartData(grouped);
+      });
   }
 
   groupByDate(dates: Date[]): Record<string, number> {

@@ -19,7 +19,7 @@ namespace PixMix.Api.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllUsers()
         {
             var users = await _userService.GetAllUsersAsync();
@@ -30,7 +30,7 @@ namespace PixMix.Api.Controllers
 
 
         [HttpGet("{id}")]
-        //[Authorize(Roles = "User")]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> GetById(int id)
         {
             var user = await _userService.GetUserByIdAsync(id);
@@ -65,7 +65,7 @@ namespace PixMix.Api.Controllers
 
 
         [HttpPut("update/{id}")]
-        //[Authorize(Roles = "User")]
+        [Authorize(Roles = "User,Admin")]
         public async Task<IActionResult> Update(int id, [FromBody] UserUpdateDTO user)
         {
             var result = await _userService.UpdateUserAsync(id, user);
@@ -79,7 +79,7 @@ namespace PixMix.Api.Controllers
 
 
         [HttpDelete("delete/{id}")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var result = await _userService.DeleteUserAsync(id);
@@ -89,6 +89,7 @@ namespace PixMix.Api.Controllers
         }
 
         [HttpGet("stats/registration-dates")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetRegistrationDates()
         {
             var dates = await _userService.GetRegistrationDatesAsync();
