@@ -10,14 +10,7 @@ import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    MatTooltipModule,
-    RouterModule
-  ],
+  imports: [CommonModule, MatToolbarModule, MatButtonModule, MatIconModule, MatTooltipModule, RouterModule],
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
@@ -44,7 +37,7 @@ export class MenuComponent implements OnInit {
 
   logOut(): void {
     localStorage.removeItem('token');
-    this.router.navigate(['/login']);
+    this.router.navigate(['']);
   }
 
   private checkScreenSize(): void {

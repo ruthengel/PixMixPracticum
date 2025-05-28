@@ -17,7 +17,7 @@ export class UserAnalyticsComponent implements OnInit {
   registrationChartData: any[] = [];
   collageChartData: any[] = [];
 
-  constructor(private http: HttpClient,, private authService: AuthService) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.loadUserRegistrations();
