@@ -1,101 +1,82 @@
-<!-- <h2 mat-dialog-title>{{getTitle()}}</h2>
+<div class="dialog-container">
+  <div class="dialog-header">
+    <div class="header-content">
+      <div class="mini-logo">
+        <span class="mini-logo-text">PX</span>
+      </div>
+      <h2 mat-dialog-title class="dialog-title">{{ getTitle() }}</h2>
+    </div>
+  </div>
 
-<mat-dialog-content>
-  <form [formGroup]="userForm" class="user-form">
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>שם מלא</mat-label>
-      <input matInput formControlName="name" placeholder="הכנס שם מלא">
-      <mat-error *ngIf="userForm.get('name')?.hasError('required')">
-        שם מלא נדרש
-      </mat-error>
-      <mat-error *ngIf="userForm.get('name')?.hasError('minlength')">
-        שם חייב להכיל לפחות 2 תווים
-      </mat-error>
-    </mat-form-field>
+  <mat-dialog-content class="dialog-content">
+    <form [formGroup]="userForm" class="user-form">
+      <div class="form-group">
+        <label class="field-label">שם מלא</label>
+        <div class="input-wrapper">
+          <mat-form-field appearance="outline" class="custom-field full-width">
+            <input matInput 
+                   formControlName="name" 
+                   placeholder="הכנס שם מלא">
+            <mat-icon matSuffix class="field-icon">person_outline</mat-icon>
+          </mat-form-field>
+        </div>
+        @if(userForm.get('name')?.hasError('required') && userForm.get('name')?.touched){
+          <mat-error class="custom-error">שם מלא נדרש</mat-error>
+        }
+        @if(userForm.get('name')?.hasError('minlength') && userForm.get('name')?.touched){
+          <mat-error class="custom-error">שם חייב להכיל לפחות 2 תווים</mat-error>
+        }
+      </div>
 
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>אימייל</mat-label>
-      <input matInput type="email" formControlName="email" placeholder="הכנס כתובת אימייל">
-      <mat-error *ngIf="userForm.get('email')?.hasError('required')">
-        אימייל נדרש
-      </mat-error>
-      <mat-error *ngIf="userForm.get('email')?.hasError('email')">
-        כתובת אימייל לא תקינה
-      </mat-error>
-    </mat-form-field>
+      <div class="form-group">
+        <label class="field-label">אימייל</label>
+        <div class="input-wrapper">
+          <mat-form-field appearance="outline" class="custom-field full-width">
+            <input matInput 
+                   type="email" 
+                   formControlName="email" 
+                   placeholder="הכנס כתובת אימייל">
+            <mat-icon matSuffix class="field-icon">email_outline</mat-icon>
+          </mat-form-field>
+        </div>
+        @if(userForm.get('email')?.hasError('required') && userForm.get('email')?.touched){
+          <mat-error class="custom-error">אימייל נדרש</mat-error>
+        }
+        @if(userForm.get('email')?.hasError('email') && userForm.get('email')?.touched){
+          <mat-error class="custom-error">כתובת אימייל לא תקינה</mat-error>
+        }
+      </div>
 
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>סטטוס</mat-label>
-      <mat-select formControlName="status">
-        <mat-option value="active">פעיל</mat-option>
-        <mat-option value="inactive">לא פעיל</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </form>
-</mat-dialog-content>
+      <div class="form-group">
+        <label class="field-label">סיסמה</label>
+        <div class="input-wrapper">
+          <mat-form-field appearance="outline" class="custom-field full-width">
+            <input matInput 
+                   type="password" 
+                   formControlName="password" 
+                   placeholder="הכנס סיסמה">
+            <mat-icon matSuffix class="field-icon">lock_outline</mat-icon>
+          </mat-form-field>
+        </div>
+        @if(userForm.get('password')?.hasError('required') && userForm.get('password')?.touched){
+          <mat-error class="custom-error">סיסמה נדרשת</mat-error>
+        }
+        @if(userForm.get('password')?.hasError('minlength') && userForm.get('password')?.touched){
+          <mat-error class="custom-error">סיסמה חייבת להכיל לפחות 4 תווים</mat-error>
+        }
+      </div>
+    </form>
+  </mat-dialog-content>
 
-<mat-dialog-actions align="end">
-  <button mat-button (click)="onCancel()">ביטול</button>
-  <button mat-raised-button color="primary" (click)="onSubmit()" 
-          [disabled]="!userForm.valid">
-    {{getSubmitButtonText()}}
-  </button>
-</mat-dialog-actions>  -->
-
-<h2 mat-dialog-title>{{ getTitle() }}</h2>
-
-<mat-dialog-content>
-  <form [formGroup]="userForm" class="user-form">
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>שם מלא</mat-label>
-      <input matInput formControlName="name" placeholder="הכנס שם מלא">
-      @if(userForm.get('name')?.hasError('required')){
-      <mat-error>
-        שם מלא נדרש
-      </mat-error>
-      }
-      @if(userForm.get('name')?.hasError('minlength')){
-      <mat-error>
-        שם חייב להכיל לפחות 2 תווים
-      </mat-error>
-      }
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>אימייל</mat-label>
-      <input matInput type="email" formControlName="email" placeholder="הכנס כתובת אימייל">
-      @if(userForm.get('email')?.hasError('required')){
-      <mat-error>
-        אימייל נדרש
-      </mat-error>
-      }
-      @if(userForm.get('email')?.hasError('email')){
-      <mat-error>
-        כתובת אימייל לא תקינה
-      </mat-error>
-      }
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>סיסמה</mat-label>
-      <input matInput type="password" formControlName="password" placeholder="הכנס סיסמה">
-      @if(userForm.get('password')?.hasError('required')){
-      <mat-error>
-        סיסמה נדרשת
-      </mat-error>
-      }
-      @if(userForm.get('password')?.hasError('minlength')){
-      <mat-error>
-        סיסמה חייבת להכיל לפחות 4 תווים
-      </mat-error>
-      }
-    </mat-form-field>
-  </form>
-</mat-dialog-content>
-
-<mat-dialog-actions align="end">
-  <button mat-button (click)="onCancel()">ביטול</button>
-  <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!userForm.valid">
-    {{ getSubmitButtonText() }}
-  </button>
-</mat-dialog-actions>
+  <mat-dialog-actions class="dialog-actions">
+    <button mat-button (click)="onCancel()" class="cancel-btn">
+      ביטול
+    </button>
+    <button mat-raised-button 
+            (click)="onSubmit()" 
+            [disabled]="!userForm.valid"
+            class="submit-btn">
+      {{ getSubmitButtonText() }}
+    </button>
+  </mat-dialog-actions>
+</div>

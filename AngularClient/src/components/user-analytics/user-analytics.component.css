@@ -1,14 +1,14 @@
-/* user-analytics.component.css */
 .charts-container {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    padding: 2rem;
-    max-width: 900px;
-    margin: auto;
-  }
-  
-  canvas {
-    max-width: 100%;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding-left: 500px;
+  max-width: 900px;
+  width: 800px;
+  position: fixed;
+}
+
+canvas {
+  max-width: 100%;
+}

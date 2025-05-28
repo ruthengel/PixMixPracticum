@@ -1,18 +1,63 @@
-<nav class="navbar mat-elevation-z4">
-    <mat-toolbar color="primary">
-        <div class="nav-links">
-            <a mat-button routerLink="" routerLinkActive="active" class="nav-item home">Home</a>
+<div class="mm">
+    <nav class="sidebar" [class.collapsed]="isCollapsed">
+        <div class="sidebar-toggle" (click)="toggleSidebar()">
+            <mat-icon>{{ isCollapsed ? 'menu' : 'close' }}</mat-icon>
+        </div>
 
-            @if(!getFromSessionStorage('token')) {
-            <a mat-button routerLink="login" routerLinkActive="active" class="nav-item sign-in">Sign-in</a>
-            }
-            @if(getFromSessionStorage('token')){
-            <a mat-button routerLink="userManagement" routerLinkActive="active" class="nav-item user-management">manage</a>
-            <a mat-button routerLink="analistycs" routerLinkActive="active" class="nav-item analistycs">analistycs</a>
+        <div class="sidebar-content">
+            <div class="nav-links">
+                <a mat-button routerLink="" routerLinkActive="active" class="nav-item" matTooltip="בית"
+                    [matTooltipDisabled]="!isCollapsed" matTooltipPosition="right">
+                    <mat-icon>home</mat-icon>
+                    @if(!isCollapsed){
+                    <span class="nav-text">Home</span>
+                    }
+                </a>
+
+                @if(!getFromlocalStorage('token')) {
+                <a mat-button routerLink="login" routerLinkActive="active" class="nav-item" matTooltip="התחברות"
+                    [matTooltipDisabled]="!isCollapsed" matTooltipPosition="right">
+                    <mat-icon>login</mat-icon>
+                    @if(!isCollapsed){
+                    <span class="nav-text">Sign-in</span>
+                    }
+                </a>
+                }
+                @if(getFromlocalStorage('token')){
+                <a mat-button routerLink="userManagement" routerLinkActive="active" class="nav-item"
+                    matTooltip="ניהול משתמשים" [matTooltipDisabled]="!isCollapsed" matTooltipPosition="right">
+                    <mat-icon>people</mat-icon>
+                    @if(!isCollapsed){
+                    <span class="nav-text">Manage</span>
+                    }
+                </a>
+
+                <a mat-button routerLink="analistycs" routerLinkActive="active" class="nav-item" matTooltip="אנליטיקס"
+                    [matTooltipDisabled]="!isCollapsed" matTooltipPosition="right">
+                    <mat-icon>analytics</mat-icon>
+                    @if(!isCollapsed){
+                    <span class="nav-text">Analytics</span>
+                    }
+                </a>
+
+                <a mat-button class="nav-item" (click)="logOut()" matTooltip="log out"
+                    [matTooltipDisabled]="!isCollapsed" matTooltipPosition="right">
+                    <mat-icon>logout</mat-icon>
+                    @if(!isCollapsed){
+                    <span class="nav-text">log out</span>
+                    }
+                </a>
+                }
+            </div>
+
+            @if(getFromlocalStorage('token')){
+            <div class="sidebar-footer">
+
+            </div>
             }
         </div>
-    </mat-toolbar>
-</nav>
-<div class="content">
-    <router-outlet></router-outlet>
+    </nav>
+    <div class="content" [class.sidebar-collapsed]="isCollapsed">
+        <router-outlet></router-outlet>
+    </div>
 </div>

@@ -1,98 +1,210 @@
-.login-container {
-    height: 100vh;
-    overflow: hidden;
-    background-color: rgba(255, 255, 255, 0.7);
+.signin-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    margin-left: 400px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .login-card {
-    width: 400px; 
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    animation: slideIn 0.5s ease-in-out;  
-    background-color: rgba(167, 235, 229, 0.2);
-    margin-top: 10%;
-    margin-left: 36%;
+    display: flex;
+    align-items: center;
+    margin-top: 550px;
+    margin-left: 800px;
+    width: 100%;
+    max-width: 380px;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    background: white;
+    border: none;
+    position: fixed;
 }
 
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(-50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-#eye{
-    margin: 10px;
-    cursor: pointer;
-}
-.mat-card-title {
-    font-size: 18px; /* כותרת קטנה יותר */
+.logo-section {
     text-align: center;
-    color: #70b2b1;
+    margin-bottom: 30px;
 }
 
-.mat-form-field {
-    width: 100%;
-    margin-bottom: 20px; /* מרווח קטן בין השדות */
+.logo-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    box-shadow: 0 6px 20px rgba(79, 70, 229, 0.3);
 }
 
-.mat-form-field .mat-input-element {
-    font-size: 14px; /* הקטנת הגודל של הטקסט בשדה */
-    padding: 8px; /* הקטנתי את הריפוד */
-}
-
-/* 6. מיקום ושינוי עיצוב של טעויות (mat-error) */
-.mat-error {
-    color: red;
-    font-size: 12px; /* כתב יותר קטן */
-    margin-top: 700px; /* מרווח קטן מתחת לשדה */
-}
-
-/* 7. שינוי צבע מסגרת ה-INPUT בעת לחיצה */
-.mat-form-field-appearance-outline .mat-form-field-outline {
-    border-color: #b0e0e6; /* צבע מסגרת רגיל */
-}
-
-.mat-form-field-appearance-outline .mat-form-field-outline.mat-focused {
-    border-color: #70b2b1 !important;  /* צבע טורקיז כאשר השדה בפוקוס */
-    box-shadow: 0 0 5px 2px rgba(112, 178, 177, 0.5); /* הצללה */
-}
-
-/* 8. שינוי צבע כפתור ה-Submit */
-button {
-    width: 100%;
-    background-color: #70b2b1;  /* צבע הרקע */
+.logo-text {
     color: white;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.app-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 6px 0;
+    letter-spacing: -0.5px;
+}
+
+.app-subtitle {
+    font-size: 13px;
+    color: #6b7280;
+    margin: 0;
+    font-weight: 400;
+}
+
+.login-form {
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.field-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 6px;
+    text-align: right;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.custom-field {
+    width: 100%;
+    /* height: 40px; */
+}
+
+.custom-field input {
+    height: 10px;
+}
+
+.custom-field .mat-mdc-text-field-wrapper {
+    background-color: #f9fafb;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    transition: all 0.2s ease;
+    height: 44px;
+}
+
+.custom-field .mat-mdc-text-field-wrapper:hover {
+    border-color: #d1d5db;
+    background-color: #ffffff;
+}
+
+.custom-field.mat-focused .mat-mdc-text-field-wrapper {
+    border-color: #4f46e5;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
+}
+
+.custom-field .mat-mdc-input-element {
+    color: #1f2937;
     font-size: 14px;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 20px;
-    text-transform: uppercase;
-    letter-spacing: 1px;  /* מרווחים בין האותיות */
-    transition: background-color 0.3s ease;
+    /* padding: 12px 45px 12px 14px; */
+    text-align: right;
+    /* height: 20px; */
+    /* line-height: 20px; */
 }
 
-button:disabled {
-    background-color: #b2dfdf;
+.custom-field .mat-mdc-input-element::placeholder {
+    color: #9ca3af;
+    font-size: 13px;
 }
 
-button:not(:disabled) {
-    background-color: #70b2b1;  /* צבע רקע רגיל */
+.field-icon {
+    color: #9ca3af;
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    right: 280px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.custom-field.mat-focused .field-icon {
+    color: #4f46e5;
+}
+
+.custom-error {
+    font-size: 11px;
+    color: #ef4444;
+    margin-top: 3px;
+    text-align: right;
+}
+
+.submit-btn {
+    width: 100%;
+    height: 42px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
     color: white;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    margin-top: 6px;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 12px rgba(79, 70, 229, 0.3);
 }
 
-button:disabled {
-    background-color: #b2dfdf;
-    color: white;
+.submit-btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(79, 70, 229, 0.4);
+}
+
+.submit-btn:disabled {
+    background: #e5e7eb;
+    color: #9ca3af;
+    box-shadow: none;
     cursor: not-allowed;
 }
 
-/* 9. כפתור ה-login שישמור על העיצוב */
-.mat-button {
-    background-color: #70b2b1;
-    color: white;
+.footer-text {
+    text-align: center;
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px solid #f3f4f6;
+}
+
+.footer-text span {
+    font-size: 11px;
+    color: #9ca3af;
+}
+
+/* Remove Material Design outline */
+.custom-field .mat-mdc-notched-outline {
+    display: none;
+}
+
+.custom-field .mat-mdc-floating-label {
+    display: none;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .signin-container {
+        padding: 16px;
+    }
+
+    .login-card {
+        padding: 24px 20px;
+    }
+
+    .app-title {
+        font-size: 20px;
+    }
 }

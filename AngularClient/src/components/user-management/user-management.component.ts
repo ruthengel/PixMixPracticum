@@ -8,21 +8,17 @@ import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { debounceTime, distinctUntilChanged } from "rxjs/operators"
 import type { User } from "../../models/user.model"
 import { UserService } from "../../services/user-service/user.service"
-// import { UserDialogComponent } from "../user-dialog/user-dialog.component"
 import { MatButtonModule } from "@angular/material/button"
 import { MatCardModule } from "@angular/material/card"
 import { MatFormFieldModule } from "@angular/material/form-field"
 import { MatIconModule } from "@angular/material/icon"
 import { MatInputModule } from "@angular/material/input"
 import { MatMenuModule } from "@angular/material/menu"
-// import { BrowserModule } from "@angular/platform-browser"
 import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CommonModule, DatePipe } from '@angular/common';
-import { log } from "console"
 import { UserDialogComponent } from "../user-dialog/user-dialog.component"
-// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @Component({
@@ -54,9 +50,7 @@ export class UserManagementComponent implements OnInit {
   }
 
   setupSearch(): void {
-    // this.searchControl.valueChanges.pipe(debounceTime(300), distinctUntilChanged()).subscribe((searchTerm) => {
-    //   this.loadUsers(searchTerm || "")
-    // })
+
     this.searchControl.valueChanges.pipe(
       debounceTime(300),
       distinctUntilChanged()

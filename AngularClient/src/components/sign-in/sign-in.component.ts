@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UserService } from '../../services/user-service/user.service';
 import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -10,15 +9,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-// import jwt_decode from 'jwt-decode';
 import { jwtDecode } from 'jwt-decode';
 import { AuthService } from '../../services/auth-service/auth.service';
-
-interface DecodedToken {
-  role: string;
-  [key: string]: any;
-}
-
 
 @Component({
   selector: 'app-sign-in',
@@ -52,11 +44,9 @@ export class SignInComponent {
       next: (response) => {
         const decoded: any = jwtDecode(response.token);
         const role = decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
-        console.log(decoded);
-        console.log(role);     
         if (role === 'Admin') {
           this.authService.saveToken(response.token)
-          alert(response.messege)
+          alert(response.message)
         }
         else
         alert(`You don't have match permission!`)

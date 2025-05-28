@@ -1,18 +1,222 @@
-.user-form {
+.dialog-container {
+    width: 100%;
+    max-width: 600px;
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.dialog-header {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.header-content {
     display: flex;
-    flex-direction: column;
-    gap: 16px;
-    min-width: 400px;
+    align-items: center;
+    gap: 12px;
+}
+
+.mini-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 12px rgba(79, 70, 229, 0.2);
+    /* flex-shrink: 0; */
+}
+
+.mini-logo-text {
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.dialog-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+    letter-spacing: -0.5px;
+}
+
+.dialog-content {
+    padding: 24px;
+    max-height: none;
+    overflow: visible;
+}
+
+.user-form {
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.field-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 5px;
+    text-align: right;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.custom-field {
+    width: 100%;
+}
+
+.custom-field .mat-mdc-text-field-wrapper {
+    background-color: #f9fafb;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    transition: all 0.2s ease;
+    height: 40px;
+}
+
+.custom-field .mat-mdc-text-field-wrapper:hover {
+    border-color: #d1d5db;
+    background-color: #ffffff;
+}
+
+.custom-field.mat-focused .mat-mdc-text-field-wrapper {
+    border-color: #4f46e5;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
+}
+
+.custom-field .mat-mdc-input-element {
+    color: #1f2937;
+    font-size: 13px;
+    padding: 10px 40px 10px 12px;
+    text-align: right;
+    height: 20px;
+    line-height: 20px;
+}
+
+.custom-field .mat-mdc-input-element::placeholder {
+    color: #9ca3af;
+    font-size: 12px;
+}
+
+.field-icon {
+    color: #9ca3af;
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.custom-field.mat-focused .field-icon {
+    color: #4f46e5;
+}
+
+.custom-error {
+    font-size: 10px;
+    color: #ef4444;
+    margin-top: 2px;
+    text-align: right;
+    display: block;
+}
+
+.dialog-actions {
+    padding: 16px 24px 20px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    background: #fafbfc;
+    border-top: 1px solid #f1f5f9;
+}
+
+.cancel-btn {
+    height: 36px;
+    padding: 0 18px;
+    border-radius: 8px;
+    color: #6b7280;
+    font-weight: 500;
+    font-size: 13px;
+    border: 1px solid #e5e7eb;
+    background: white;
+    transition: all 0.2s ease;
+}
+
+.cancel-btn:hover {
+    background: #f9fafb;
+    border-color: #d1d5db;
+}
+
+.submit-btn {
+    height: 36px;
+    padding: 0 18px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    color: white;
+    font-weight: 600;
+    font-size: 13px;
+    border: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(79, 70, 229, 0.2);
+}
+
+.submit-btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+}
+
+.submit-btn:disabled {
+    background: #e5e7eb;
+    color: #9ca3af;
+    box-shadow: none;
+    cursor: not-allowed;
 }
 
 .full-width {
     width: 100%;
 }
 
-mat-dialog-content {
-    padding: 24px;
+.custom-field .mat-mdc-notched-outline {
+    display: none;
 }
 
-mat-dialog-actions {
-    padding: 16px 24px;
+.custom-field .mat-mdc-floating-label {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    .dialog-container {
+        max-width: 100%;
+        margin: 12px;
+    }
+
+    .dialog-header {
+        padding: 16px 20px 12px;
+    }
+
+    .dialog-content {
+        padding: 20px;
+    }
+
+    .dialog-actions {
+        padding: 12px 20px 16px;
+        flex-direction: column-reverse;
+    }
+
+    .cancel-btn,
+    .submit-btn {
+        width: 100%;
+        height: 40px;
+    }
 }

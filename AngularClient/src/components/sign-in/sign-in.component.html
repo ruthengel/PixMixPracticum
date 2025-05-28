@@ -1,35 +1,72 @@
-<mat-card class="login-card">
-    <mat-card-title>Log In</mat-card-title>
-    <form [formGroup]="loginForm" (ngSubmit)="logIn()">
-        <mat-form-field appearance="outline">
-            <mat-label>Email</mat-label>
-            <input matInput id="email" formControlName="email" required>
-            @if(form['email'] && form['email'].errors && form['email'].touched) {
+<div class="signin-container">
+    <mat-card class="login-card">
+      <div class="logo-section">
+        <div class="logo-circle">
+          <span class="logo-text">PX</span>
+        </div>
+        <h1 class="app-title">PixMix Admin</h1>
+        <p class="app-subtitle">התחבר למערכת הניהול</p>
+      </div>
+      
+      <form [formGroup]="loginForm" (ngSubmit)="logIn()" class="login-form">
+        <div class="form-group">
+          <label class="field-label">אימייל</label>
+          <div class="input-wrapper">
+            <mat-form-field appearance="outline" class="custom-field">
+              <input matInput 
+                     id="email" 
+                     formControlName="email" 
+                     placeholder="הכנס כתובת אימייל"
+                     required>
+              <mat-icon matSuffix class="field-icon">person_outline</mat-icon>
+            </mat-form-field>
+          </div>
+          @if(form['email'] && form['email'].errors && form['email'].touched) {
             @if(form['email'].errors['required']) {
-            <mat-error>email is required</mat-error>
+              <mat-error class="custom-error">שדה האימייל נדרש</mat-error>
             }
             @if(form['email'].errors['email']) {
-            <mat-error>email is not valid</mat-error>
+              <mat-error class="custom-error">כתובת האימייל אינה תקינה</mat-error>
             }
-            }
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-            <mat-label>Password</mat-label>
-            <input matInput id="password" type="password" formControlName="password" required>
-            @if(form['password'] && form['password'].errors && form['password'].touched) {
+          }
+        </div>
+  
+        <div class="form-group">
+          <label class="field-label">סיסמה</label>
+          <div class="input-wrapper">
+            <mat-form-field appearance="outline" class="custom-field">
+              <input matInput 
+                     id="password" 
+                     type="password" 
+                     formControlName="password" 
+                     placeholder="הכנס סיסמה"
+                     required>
+              <mat-icon matSuffix class="field-icon">lock_outline</mat-icon>
+            </mat-form-field>
+          </div>
+          @if(form['password'] && form['password'].errors && form['password'].touched) {
             @if(form['password'].errors['required']) {
-            <mat-error>password is required</mat-error>
+              <mat-error class="custom-error">שדה הסיסמה נדרש</mat-error>
             }
             @if(form['password'].errors['minlength']) {
-            <mat-error>password must be at least 4 characters</mat-error>
+              <mat-error class="custom-error">הסיסמה חייבת להכיל לפחות 4 תווים</mat-error>
             }
             @if(form['password'].errors['maxlength']) {
-            <mat-error>password must be at most 8 characters</mat-error>
+              <mat-error class="custom-error">הסיסמה יכולה להכיל עד 8 תווים</mat-error>
             }
-            }
-        </mat-form-field>
-
-        <button mat-raised-button type="submit" [disabled]="loginForm.invalid">Submit</button>
-    </form>
-</mat-card>
+          }
+        </div>
+  
+        <button mat-raised-button 
+                type="submit" 
+                [disabled]="loginForm.invalid" 
+                class="submit-btn">
+          התחבר
+        </button>
+      </form>
+  
+      <div class="footer-text">
+        <span>לבדיקה: admin / pixmix2024</span>
+      </div>
+    </mat-card>
+  </div>
