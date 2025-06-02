@@ -30,11 +30,11 @@ const SignIn = () => {
         setSignin(false);
 
         try {
-            await schema.validate({
-                email: emailRef.current?.value,
-                password: passswordRef.current?.value,
-            });
-            setErrors({});
+            // await schema.validate({
+            //     email: emailRef.current?.value,
+            //     password: passswordRef.current?.value,
+            // });
+            // setErrors({});
             const res = await axios.post(`${myUrl}/api/User/login`, {
                 email: emailRef.current?.value,
                 password: passswordRef.current?.value
