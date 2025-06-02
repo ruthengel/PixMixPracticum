@@ -8,15 +8,15 @@ import SendIcon from "@mui/icons-material/Send";
 import CloseIcon from "@mui/icons-material/Close";
 import UserStore from "../../stores/UserStore";
 import { useNavigate } from "react-router-dom";
-import * as yup from "yup";
-const schema = yup.object().shape({
-    name: yup.string().min(2, "Name must be at least 2 characters").required("Name is required"),
-    email: yup.string().email("Invalid email").required("Email is required"),
-    password: yup
-        .string()
-        .min(4, "Password must be at least 4 characters")
-        .required("Password is required"),
-});
+// import * as yup from "yup";
+// const schema = yup.object().shape({
+//     name: yup.string().min(2, "Name must be at least 2 characters").required("Name is required"),
+//     email: yup.string().email("Invalid email").required("Email is required"),
+//     password: yup
+//         .string()
+//         .min(4, "Password must be at least 4 characters")
+//         .required("Password is required"),
+// });
 const Profile = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -28,7 +28,7 @@ const Profile = () => {
     const emailRef = useRef<HTMLInputElement>(null)
     const passswordRef = useRef<HTMLInputElement>(null)
     const [openMenu, setOpenMenu] = useState(false)
-    const [errors, setErrors] = useState<{ [key: string]: string }>({});
+    // const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
     const handleClick = () => {
         setOpenMenu(!openMenu)
@@ -47,12 +47,12 @@ const Profile = () => {
 
     const handleSumbit = async () => {
         setOpen(false);
-        await schema.validate({
-            name: nameRef.current?.value,
-            email: emailRef.current?.value,
-            password: passswordRef.current?.value,
-        });
-        setErrors({});
+        // await schema.validate({
+        //     name: nameRef.current?.value,
+        //     email: emailRef.current?.value,
+        //     password: passswordRef.current?.value,
+        // });
+        // setErrors({});
         try {
             await UserStore.updateUser(userId, {
                 name: nameRef.current?.value,
@@ -61,15 +61,15 @@ const Profile = () => {
             }, token, dispatch);
         }
         catch (e) {
-            if (e instanceof yup.ValidationError) {
-                const errorMap: { [key: string]: string } = {};
-                e.inner.forEach((err) => {
-                    if (err.path) {
-                        errorMap[err.path] = err.message;
-                    }
-                });
-                setErrors(errorMap);
-            }
+            // if (e instanceof yup.ValidationError) {
+            //     const errorMap: { [key: string]: string } = {};
+            //     e.inner.forEach((err) => {
+            //         if (err.path) {
+            //             errorMap[err.path] = err.message;
+            //         }
+            //     });
+            //     setErrors(errorMap);
+            // }
         }
     };
 
@@ -157,8 +157,8 @@ const Profile = () => {
                             variant="outlined"
                             margin="normal"
                             inputRef={nameRef}
-                            error={Boolean(errors['name'])}
-                            helperText={errors['name']}
+                            // error={Boolean(errors['name'])}
+                            // helperText={errors['name']}
                             sx={{
                                 backgroundColor: "white", borderRadius: "8px", "& .MuiOutlinedInput-root": {
                                     borderRadius: "8px", "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "black" }, "&.Mui-focused fieldset": { borderColor: "black" }
@@ -172,8 +172,8 @@ const Profile = () => {
                             variant="outlined"
                             margin="normal"
                             inputRef={emailRef}
-                            error={Boolean(errors['email'])}
-                            helperText={errors['email']}
+                            // error={Boolean(errors['email'])}
+                            // helperText={errors['email']}
                             sx={{
                                 backgroundColor: "white", borderRadius: "8px", "& .MuiOutlinedInput-root": {
                                     borderRadius: "8px", "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "black" }, "&.Mui-focused fieldset": { borderColor: "black" }
@@ -187,8 +187,8 @@ const Profile = () => {
                             variant="outlined"
                             margin="normal"
                             inputRef={passswordRef}
-                            error={Boolean(errors['password'])}
-                            helperText={errors['password']}
+                            // error={Boolean(errors['password'])}
+                            // helperText={errors['password']}
                             sx={{
                                 backgroundColor: "white", borderRadius: "8px", "& .MuiOutlinedInput-root": {
                                     borderRadius: "8px", "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "black" }, "&.Mui-focused fieldset": { borderColor: "black" }
