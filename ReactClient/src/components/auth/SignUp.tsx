@@ -208,7 +208,7 @@ const SignUp = () => {
                     }}>
                         {/* Header Section */}
                         <Box sx={{
-                            background: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+                            background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
                             p: 4,
                             position: "relative",
                             textAlign: "center"
@@ -288,12 +288,12 @@ const SignUp = () => {
                                                 borderWidth: "2px"
                                             },
                                             "&:hover fieldset": {
-                                                borderColor: "#f093fb"
+                                                borderColor: "#667eea"
                                             },
                                             "&.Mui-focused": {
                                                 backgroundColor: "white",
                                                 "& fieldset": {
-                                                    borderColor: "#f093fb",
+                                                    borderColor: "#667eea",
                                                     borderWidth: "2px"
                                                 }
                                             }
@@ -303,7 +303,7 @@ const SignUp = () => {
                                             fontWeight: 500
                                         },
                                         "& .MuiInputLabel-root.Mui-focused": {
-                                            color: "#f093fb"
+                                            color: "#667eea"
                                         }
                                     }}
                                 />
@@ -332,7 +332,7 @@ const SignUp = () => {
                                             "&.Mui-focused": {
                                                 backgroundColor: "white",
                                                 "& fieldset": {
-                                                    borderColor: "#f093fb",
+                                                    borderColor: "#667eea",
                                                     borderWidth: "2px"
                                                 }
                                             }
@@ -342,7 +342,7 @@ const SignUp = () => {
                                             fontWeight: 500
                                         },
                                         "& .MuiInputLabel-root.Mui-focused": {
-                                            color: "#f093fb"
+                                            color: "#667eea"
                                         }
                                     }}
                                 />
@@ -366,12 +366,12 @@ const SignUp = () => {
                                                 borderWidth: "2px"
                                             },
                                             "&:hover fieldset": {
-                                                borderColor: "#f093fb"
+                                                borderColor: "#667eea"
                                             },
                                             "&.Mui-focused": {
                                                 backgroundColor: "white",
                                                 "& fieldset": {
-                                                    borderColor: "#f093fb",
+                                                    borderColor: "#667eea",
                                                     borderWidth: "2px"
                                                 }
                                             }
@@ -381,7 +381,7 @@ const SignUp = () => {
                                             fontWeight: 500
                                         },
                                         "& .MuiInputLabel-root.Mui-focused": {
-                                            color: "#f093fb"
+                                            color: "#667eea"
                                         }
                                     }}
                                 />
@@ -402,7 +402,7 @@ const SignUp = () => {
                                         boxShadow: "0 8px 25px rgba(240, 147, 251, 0.4)",
                                         transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
                                         "&:hover": {
-                                            background: "linear-gradient(135deg, #f5576c 0%, #f093fb 100%)",
+                                            background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
                                             transform: "translateY(-2px)",
                                             boxShadow: "0 12px 35px rgba(240, 147, 251, 0.6)"
                                         },
