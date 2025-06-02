@@ -56,12 +56,15 @@ const BackgroundRecommenderChat = () => {
     setLoading(true)
 
     try {
-      const result = await axios.post(`${myUrl}/api/ChatBot`, {
-        messages: [{ role: "user", content: prompt }],
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
+      const result = await axios.post(`${myUrl}/api/ChatBot`,
+        {
+          messages: [{ role: "user", content: prompt }],
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
 
       const botMessage = {
         role: "bot" as const,
