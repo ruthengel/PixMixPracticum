@@ -158,7 +158,7 @@ const SignIn = () => {
     return (
         <>
             {/* Enhanced Sign In Button */}
-            <Button 
+            {/* <Button 
                 sx={{ 
                     position: "fixed", 
                     top: 20, 
@@ -190,14 +190,15 @@ const SignIn = () => {
                 onClick={() => { setOpen(true); setSignin(true); }}
             >
                 Sign In
-            </Button>
+            </Button> */}
+            <Button sx={{ position: "fixed", top: 15, left: 20, zIndex: 1350, color: "white", background: "linear-gradient(270deg, #7D2AE8, #00A0A8)", backgroundClip: "border-box", padding: "10px 20px", whiteSpace: "nowrap", "&:hover": { background: "linear-gradient(270deg, #00A0A8,  #7D2AE8)", color: "white", transition: "background-color 0.3s ease, color 0.3s ease" } }} variant="contained" size="medium" onClick={() => { setOpen(true); setSignin(true); }}>Sign in</Button>
 
             {/* Enhanced Modal */}
             {signin && (
-                <Modal 
-                    open={open} 
-                    onClose={() => setOpen(false)} 
-                    aria-labelledby="login-modal-title" 
+                <Modal
+                    open={open}
+                    onClose={() => setOpen(false)}
+                    aria-labelledby="login-modal-title"
                     aria-describedby="login-modal-description"
                     closeAfterTransition
                     BackdropComponent={Backdrop}
@@ -209,7 +210,7 @@ const SignIn = () => {
                         }
                     }}
                 >
-                    <Box sx={{ 
+                    <Box sx={{
                         position: 'absolute',
                         top: '50%',
                         left: '50%',
@@ -230,10 +231,10 @@ const SignIn = () => {
                             position: "relative",
                             textAlign: "center"
                         }}>
-                            <IconButton 
-                                sx={{ 
-                                    position: "absolute", 
-                                    top: 16, 
+                            <IconButton
+                                sx={{
+                                    position: "absolute",
+                                    top: 16,
                                     right: 16,
                                     color: "white",
                                     backgroundColor: "rgba(255, 255, 255, 0.1)",
@@ -241,12 +242,12 @@ const SignIn = () => {
                                     "&:hover": {
                                         backgroundColor: "rgba(255, 255, 255, 0.2)"
                                     }
-                                }} 
+                                }}
                                 onClick={() => setOpen(false)}
                             >
                                 <CloseIcon />
                             </IconButton>
-                            
+
                             <Box sx={{
                                 width: 80,
                                 height: 80,
@@ -261,10 +262,10 @@ const SignIn = () => {
                             }}>
                                 <PersonOutlineIcon sx={{ fontSize: 40, color: "white" }} />
                             </Box>
-                            
-                            <Typography 
-                                variant="h4" 
-                                sx={{ 
+
+                            <Typography
+                                variant="h4"
+                                sx={{
                                     color: "white",
                                     fontWeight: 700,
                                     fontSize: "28px",
@@ -273,9 +274,9 @@ const SignIn = () => {
                             >
                                 Welcome Back
                             </Typography>
-                            <Typography 
-                                variant="body1" 
-                                sx={{ 
+                            <Typography
+                                variant="body1"
+                                sx={{
                                     color: "rgba(255, 255, 255, 0.8)",
                                     fontSize: "16px"
                                 }}
@@ -287,91 +288,91 @@ const SignIn = () => {
                         {/* Form Section */}
                         <Box sx={{ p: 4 }}>
                             <form onSubmit={handleSubmit}>
-                                <TextField 
-                                    fullWidth 
-                                    label="Email Address" 
-                                    type="email" 
-                                    variant="outlined" 
-                                    margin="normal" 
-                                    inputRef={emailRef} 
-                                    required 
-                                    sx={{ 
+                                <TextField
+                                    fullWidth
+                                    label="Email Address"
+                                    type="email"
+                                    variant="outlined"
+                                    margin="normal"
+                                    inputRef={emailRef}
+                                    required
+                                    sx={{
                                         mb: 2,
-                                        "& .MuiOutlinedInput-root": { 
+                                        "& .MuiOutlinedInput-root": {
                                             borderRadius: "16px",
                                             backgroundColor: "#f8fafc",
                                             transition: "all 0.3s ease",
-                                            "& fieldset": { 
+                                            "& fieldset": {
                                                 borderColor: "#e2e8f0",
                                                 borderWidth: "2px"
                                             },
-                                            "&:hover fieldset": { 
+                                            "&:hover fieldset": {
                                                 borderColor: "#667eea"
                                             },
                                             "&.Mui-focused": {
                                                 backgroundColor: "white",
-                                                "& fieldset": { 
+                                                "& fieldset": {
                                                     borderColor: "#667eea",
                                                     borderWidth: "2px"
                                                 }
                                             }
                                         },
-                                        "& .MuiInputLabel-root": { 
+                                        "& .MuiInputLabel-root": {
                                             color: "#64748b",
                                             fontWeight: 500
                                         },
-                                        "& .MuiInputLabel-root.Mui-focused": { 
+                                        "& .MuiInputLabel-root.Mui-focused": {
                                             color: "#667eea"
                                         }
-                                    }} 
+                                    }}
                                 />
-                                
-                                <TextField 
-                                    fullWidth 
-                                    label="Password" 
-                                    type="password" 
-                                    variant="outlined" 
-                                    margin="normal" 
-                                    inputRef={passwordRef} 
-                                    required 
-                                    sx={{ 
+
+                                <TextField
+                                    fullWidth
+                                    label="Password"
+                                    type="password"
+                                    variant="outlined"
+                                    margin="normal"
+                                    inputRef={passwordRef}
+                                    required
+                                    sx={{
                                         mb: 3,
-                                        "& .MuiOutlinedInput-root": { 
+                                        "& .MuiOutlinedInput-root": {
                                             borderRadius: "16px",
                                             backgroundColor: "#f8fafc",
                                             transition: "all 0.3s ease",
-                                            "& fieldset": { 
+                                            "& fieldset": {
                                                 borderColor: "#e2e8f0",
                                                 borderWidth: "2px"
                                             },
-                                            "&:hover fieldset": { 
+                                            "&:hover fieldset": {
                                                 borderColor: "#667eea"
                                             },
                                             "&.Mui-focused": {
                                                 backgroundColor: "white",
-                                                "& fieldset": { 
+                                                "& fieldset": {
                                                     borderColor: "#667eea",
                                                     borderWidth: "2px"
                                                 }
                                             }
                                         },
-                                        "& .MuiInputLabel-root": { 
+                                        "& .MuiInputLabel-root": {
                                             color: "#64748b",
                                             fontWeight: 500
                                         },
-                                        "& .MuiInputLabel-root.Mui-focused": { 
+                                        "& .MuiInputLabel-root.Mui-focused": {
                                             color: "#667eea"
                                         }
-                                    }} 
+                                    }}
                                 />
-                                
-                                <Button 
-                                    fullWidth 
-                                    variant="contained" 
-                                    size="large" 
-                                    type="submit" 
-                                    endIcon={<SendIcon />} 
-                                    sx={{ 
+
+                                <Button
+                                    fullWidth
+                                    variant="contained"
+                                    size="large"
+                                    type="submit"
+                                    endIcon={<SendIcon />}
+                                    sx={{
                                         background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
                                         borderRadius: "16px",
                                         padding: "16px",
@@ -380,7 +381,7 @@ const SignIn = () => {
                                         textTransform: "none",
                                         boxShadow: "0 8px 25px rgba(102, 126, 234, 0.4)",
                                         transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-                                        "&:hover": { 
+                                        "&:hover": {
                                             background: "linear-gradient(135deg, #764ba2 0%, #667eea 100%)",
                                             transform: "translateY(-2px)",
                                             boxShadow: "0 12px 35px rgba(102, 126, 234, 0.6)"
