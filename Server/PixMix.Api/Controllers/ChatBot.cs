@@ -114,7 +114,6 @@ namespace PixMix.Api.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "User,Admin")]
         public async Task<IActionResult> RecommendBackground([FromBody] ChatPromptRequest request)
         {
             var systemMessage = new ChatMessage
