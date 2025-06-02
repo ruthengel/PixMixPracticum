@@ -6,6 +6,13 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setToken } from "../../stores/TokenSlice";
 import { RootState } from "../../stores/Store";
+import * as Yup from "yup";
+const schema = Yup.object().shape({
+    email: Yup.string().email("Invalid email format").required("Email is required"),
+    password: Yup.string()
+        .min(4, "Password must be at least 4 characters")
+        .required("Password is required"),
+});
 const myUrl = import.meta.env.VITE_SERVERURL
 const SignIn = () => {
 
@@ -22,6 +29,7 @@ const SignIn = () => {
         setSignin(false);
 
         try {
+            await schema.validate({ emailRef, passswordRef });
             const res = await axios.post(`${myUrl}/api/User/login`, {
                 email: emailRef.current?.value,
                 password: passswordRef.current?.value

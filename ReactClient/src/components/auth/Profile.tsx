@@ -8,7 +8,15 @@ import SendIcon from "@mui/icons-material/Send";
 import CloseIcon from "@mui/icons-material/Close";
 import UserStore from "../../stores/UserStore";
 import { useNavigate } from "react-router-dom";
-
+import * as yup from "yup";
+const schema = yup.object().shape({
+    name: yup.string().min(2, "Name must be at least 2 characters").required("Name is required"),
+    email: yup.string().email("Invalid email").required("Email is required"),
+    password: yup
+        .string()
+        .min(4, "Password must be at least 4 characters")
+        .required("Password is required"),
+});
 const Profile = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -38,6 +46,7 @@ const Profile = () => {
 
     const handleSumbit = async () => {
         setOpen(false);
+        await schema.validate({ nameRef, emailRef, passswordRef });
         await UserStore.updateUser(userId, {
             name: nameRef.current?.value,
             email: emailRef.current?.value,

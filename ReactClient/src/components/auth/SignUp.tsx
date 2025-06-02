@@ -5,8 +5,16 @@ import SendIcon from "@mui/icons-material/Send";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch } from "react-redux";
 import { setToken } from "../../stores/TokenSlice";
+import * as yup from "yup";
 const myUrl = import.meta.env.VITE_SERVERURL
-
+const schema = yup.object().shape({
+    name: yup.string().min(2, "Name must be at least 2 characters").required("Name is required"),
+    email: yup.string().email("Invalid email").required("Email is required"),
+    password: yup
+        .string()
+        .min(4, "Password must be at least 4 characters")
+        .required("Password is required"),
+});
 const SignUp = () => {
     const dispatch = useDispatch()
     const [open, setOpen] = useState(false)
@@ -15,12 +23,12 @@ const SignUp = () => {
     const emailRef = useRef<HTMLInputElement>(null)
     const passswordRef = useRef<HTMLInputElement>(null)
 
-
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         setSignup(false);
 
         try {
+            await schema.validate({ nameRef, emailRef, passswordRef });
             const res = await axios.post(`${myUrl}/api/User/register`, {
                 name: nameRef.current?.value,
                 email: emailRef.current?.value,
@@ -41,7 +49,7 @@ const SignUp = () => {
             }
         }
     };
-    return  (<>
+    return (<>
         <Button sx={{ position: "fixed", top: 15, left: 125, zIndex: 1350, color: "transparent", border: "2px solid transparent", background: "linear-gradient(270deg, #00A0A8, #7D2AE8)", backgroundClip: "text", padding: "8px 16px", "&:hover": { border: "2px solid transparent", background: "linear-gradient(270deg,#7D2AE8, #00A0A8 )", color: "transparent", backgroundClip: "text", transition: "background-color 0.3s ease, color 0.3s ease" } }} variant="contained" size="medium" onClick={() => { setOpen(true); setSignup(true); }}>Sign up</Button>
         {signup && (
             <Modal open={open} onClose={() => setOpen(false)} aria-labelledby="login-modal-title" aria-describedby="login-modal-description">
