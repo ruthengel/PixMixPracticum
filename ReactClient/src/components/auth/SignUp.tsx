@@ -393,7 +393,7 @@ const SignUp = () => {
                                     type="submit"
                                     endIcon={<SendIcon />}
                                     sx={{
-                                        background: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+                                        background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
                                         borderRadius: "16px",
                                         padding: "16px",
                                         fontSize: "16px",
@@ -402,7 +402,7 @@ const SignUp = () => {
                                         boxShadow: "0 8px 25px rgba(240, 147, 251, 0.4)",
                                         transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
                                         "&:hover": {
-                                            background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                                            background: "linear-gradient(135deg, #764ba2 0%, #667eea 100%)",
                                             transform: "translateY(-2px)",
                                             boxShadow: "0 12px 35px rgba(240, 147, 251, 0.6)"
                                         },
