@@ -7,8 +7,7 @@ import SendIcon from "@mui/icons-material/Send"
 import SmartToyIcon from "@mui/icons-material/SmartToy"
 import PersonIcon from "@mui/icons-material/Person"
 import CloseIcon from "@mui/icons-material/Close"
-import { useSelector } from "react-redux"
-import { RootState } from "../../stores/Store"
+
 
 const myUrl = import.meta.env.VITE_SERVERURL
 
@@ -17,7 +16,6 @@ const BackgroundRecommenderChat = () => {
   const [messages, setMessages] = useState<{ role: "user" | "bot"; content: string }[]>([])
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
-  const token = useSelector((state: RootState) => state.token.token);
 
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
@@ -59,11 +57,6 @@ const BackgroundRecommenderChat = () => {
       const result = await axios.post(`${myUrl}/api/ChatBot`,
         {
           messages: [{ role: "user", content: prompt }],
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
         })
 
       const botMessage = {
