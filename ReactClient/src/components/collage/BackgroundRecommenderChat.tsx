@@ -58,7 +58,6 @@ const BackgroundRecommenderChat = () => {
     try {
       const result = await axios.post(`${myUrl}/api/ChatBot`, {
         messages: [{ role: "user", content: prompt }],
-      },{
         headers: {
           Authorization: `Bearer ${token}`
         }
