@@ -95,6 +95,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PixMix.Api.Controllers
 {
@@ -113,6 +114,7 @@ namespace PixMix.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "User,Admin")]
         public async Task<IActionResult> RecommendBackground([FromBody] ChatPromptRequest request)
         {
             var systemMessage = new ChatMessage
