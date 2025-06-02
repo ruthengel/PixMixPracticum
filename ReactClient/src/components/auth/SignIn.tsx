@@ -21,7 +21,7 @@ const SignIn = () => {
     const [open, setOpen] = useState(false)
     const [signin, setSignin] = useState(false)
     const emailRef = useRef<HTMLInputElement>(null)
-    const passswordRef = useRef<HTMLInputElement>(null)
+    const passwordRef = useRef<HTMLInputElement>(null)
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
     const handleSubmit = async (e: FormEvent) => {
@@ -32,12 +32,13 @@ const SignIn = () => {
         try {
             await schema.validate({
                 email: emailRef.current?.value,
-                password: passswordRef.current?.value,
+                password: passwordRef.current?.value,
             });
+            console.log("Trying to login with:", { emailRef, passwordRef });
             setErrors({});
             const res = await axios.post(`${myUrl}/api/User/login`, {
                 email: emailRef.current?.value,
-                password: passswordRef.current?.value
+                password: passwordRef.current?.value
             });
             if (res.data?.token) {
                 dispatch(setToken(res.data.token))
@@ -79,7 +80,7 @@ const SignIn = () => {
                         {/* <TextField fullWidth label="Email" type="email" variant="outlined" margin="normal"  inputRef={emailRef} required sx={{ backgroundColor: "white", borderRadius: "8px", "& .MuiOutlinedInput-root": { borderRadius: "8px", "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "black" }, "&.Mui-focused fieldset": { borderColor: "black" } }, "& .MuiInputLabel-root": { color: "black" }, "& .MuiInputLabel-root.Mui-focused": { color: "black" } }} /> */}
                         <TextField fullWidth label="Email" type="email" variant="outlined" margin="normal" error={Boolean(errors['email'])} helperText={errors['email']} inputRef={emailRef} required sx={{ backgroundColor: "white", borderRadius: "8px", "& .MuiOutlinedInput-root": { borderRadius: "8px", "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "black" }, "&.Mui-focused fieldset": { borderColor: "black" } }, "& .MuiInputLabel-root": { color: "black" }, "& .MuiInputLabel-root.Mui-focused": { color: "black" } }} />
                         {/* <TextField fullWidth label="Password" type="password" variant="outlined" margin="normal" inputRef={passswordRef} required sx={{ backgroundColor: "white", borderRadius: "8px", "& .MuiOutlinedInput-root": { borderRadius: "8px", "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "black" }, "&.Mui-focused fieldset": { borderColor: "black" } }, "& .MuiInputLabel-root": { color: "black" }, "& .MuiInputLabel-root.Mui-focused": { color: "black" } }} /> */}
-                        <TextField fullWidth label="Password" type="password" variant="outlined" margin="normal" error={Boolean(errors['password'])} helperText={errors['password']} inputRef={passswordRef} required sx={{ backgroundColor: "white", borderRadius: "8px", "& .MuiOutlinedInput-root": { borderRadius: "8px", "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "black" }, "&.Mui-focused fieldset": { borderColor: "black" } }, "& .MuiInputLabel-root": { color: "black" }, "& .MuiInputLabel-root.Mui-focused": { color: "black" } }} />
+                        <TextField fullWidth label="Password" type="password" variant="outlined" margin="normal" error={Boolean(errors['password'])} helperText={errors['password']} inputRef={passwordRef} required sx={{ backgroundColor: "white", borderRadius: "8px", "& .MuiOutlinedInput-root": { borderRadius: "8px", "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "black" }, "&.Mui-focused fieldset": { borderColor: "black" } }, "& .MuiInputLabel-root": { color: "black" }, "& .MuiInputLabel-root.Mui-focused": { color: "black" } }} />
                         <Button fullWidth variant="contained" color="primary" size="large" type="submit" endIcon={<SendIcon />} sx={{ backgroundColor: "black", color: "white", "&:hover": { backgroundColor: "black" }, mt: 2 }}>Send</Button>
                     </form>
                 </Box>
