@@ -1,4 +1,4 @@
-import {  Box, Divider, Button, IconButton, Modal, TextField } from "@mui/material";
+import { Box, Divider, Button, IconButton, Modal, TextField } from "@mui/material";
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../stores/Store";
@@ -28,6 +28,7 @@ const Profile = () => {
     const emailRef = useRef<HTMLInputElement>(null)
     const passswordRef = useRef<HTMLInputElement>(null)
     const [openMenu, setOpenMenu] = useState(false)
+    const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
     const handleClick = () => {
         setOpenMenu(!openMenu)
@@ -46,12 +47,30 @@ const Profile = () => {
 
     const handleSumbit = async () => {
         setOpen(false);
-        await schema.validate({ nameRef, emailRef, passswordRef });
-        await UserStore.updateUser(userId, {
+        await schema.validate({
             name: nameRef.current?.value,
             email: emailRef.current?.value,
             password: passswordRef.current?.value,
-        }, token, dispatch);
+        });
+        setErrors({});
+        try {
+            await UserStore.updateUser(userId, {
+                name: nameRef.current?.value,
+                email: emailRef.current?.value,
+                password: passswordRef.current?.value,
+            }, token, dispatch);
+        }
+        catch (e) {
+            if (e instanceof yup.ValidationError) {
+                const errorMap: { [key: string]: string } = {};
+                e.inner.forEach((err) => {
+                    if (err.path) {
+                        errorMap[err.path] = err.message;
+                    }
+                });
+                setErrors(errorMap);
+            }
+        }
     };
 
     return (
@@ -138,7 +157,8 @@ const Profile = () => {
                             variant="outlined"
                             margin="normal"
                             inputRef={nameRef}
-                            required
+                            error={Boolean(errors['name'])}
+                            helperText={errors['name']}
                             sx={{
                                 backgroundColor: "white", borderRadius: "8px", "& .MuiOutlinedInput-root": {
                                     borderRadius: "8px", "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "black" }, "&.Mui-focused fieldset": { borderColor: "black" }
@@ -152,7 +172,8 @@ const Profile = () => {
                             variant="outlined"
                             margin="normal"
                             inputRef={emailRef}
-                            required
+                            error={Boolean(errors['email'])}
+                            helperText={errors['email']}
                             sx={{
                                 backgroundColor: "white", borderRadius: "8px", "& .MuiOutlinedInput-root": {
                                     borderRadius: "8px", "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "black" }, "&.Mui-focused fieldset": { borderColor: "black" }
@@ -166,7 +187,8 @@ const Profile = () => {
                             variant="outlined"
                             margin="normal"
                             inputRef={passswordRef}
-                            required
+                            error={Boolean(errors['password'])}
+                            helperText={errors['password']}
                             sx={{
                                 backgroundColor: "white", borderRadius: "8px", "& .MuiOutlinedInput-root": {
                                     borderRadius: "8px", "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "black" }, "&.Mui-focused fieldset": { borderColor: "black" }

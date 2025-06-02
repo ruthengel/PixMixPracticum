@@ -22,13 +22,20 @@ const SignUp = () => {
     const nameRef = useRef<HTMLInputElement>(null)
     const emailRef = useRef<HTMLInputElement>(null)
     const passswordRef = useRef<HTMLInputElement>(null)
+    const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         setSignup(false);
 
         try {
-            await schema.validate({ nameRef, emailRef, passswordRef });
+            await schema.validate({
+                name: nameRef.current?.value,
+                email: emailRef.current?.value,
+                password: passswordRef.current?.value,
+            });
+            setErrors({});
+
             const res = await axios.post(`${myUrl}/api/User/register`, {
                 name: nameRef.current?.value,
                 email: emailRef.current?.value,
@@ -42,6 +49,15 @@ const SignUp = () => {
                 alert("Register failed");
             }
         } catch (e) {
+            if (e instanceof yup.ValidationError) {
+                const errorMap: { [key: string]: string } = {};
+                e.inner.forEach((err) => {
+                    if (err.path) {
+                        errorMap[err.path] = err.message;
+                    }
+                });
+                setErrors(errorMap);
+            }
             if (axios.isAxiosError(e) && e.response?.status) {
                 alert(`${e.response.data.message}`);
             } else {
@@ -57,9 +73,9 @@ const SignUp = () => {
                     <IconButton sx={{ position: "absolute", color: "black" }} onClick={() => setOpen(false)}><CloseIcon /></IconButton>
                     <h2 id="login-modal-title" style={{ textAlign: "center", marginBottom: "1rem" }}>Hi! Let's Get Started</h2>
                     <form onSubmit={handleSubmit}>
-                        <TextField fullWidth label="Name" variant="outlined" margin="normal" inputRef={nameRef} required sx={{ backgroundColor: "white", borderRadius: "8px", "& .MuiOutlinedInput-root": { borderRadius: "8px", "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "black" }, "&.Mui-focused fieldset": { borderColor: "black" } }, "& .MuiInputLabel-root": { color: "black" }, "& .MuiInputLabel-root.Mui-focused": { color: "black" } }} />
-                        <TextField fullWidth label="Email" type="email" variant="outlined" margin="normal" inputRef={emailRef} required sx={{ backgroundColor: "white", borderRadius: "8px", "& .MuiOutlinedInput-root": { borderRadius: "8px", "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "black" }, "&.Mui-focused fieldset": { borderColor: "black" } }, "& .MuiInputLabel-root": { color: "black" }, "& .MuiInputLabel-root.Mui-focused": { color: "black" } }} />
-                        <TextField fullWidth label="Password" type="password" variant="outlined" margin="normal" inputRef={passswordRef} required sx={{ backgroundColor: "white", borderRadius: "8px", "& .MuiOutlinedInput-root": { borderRadius: "8px", "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "black" }, "&.Mui-focused fieldset": { borderColor: "black" } }, "& .MuiInputLabel-root": { color: "black" }, "& .MuiInputLabel-root.Mui-focused": { color: "black" } }} />
+                        <TextField fullWidth label="Name" variant="outlined" margin="normal" inputRef={nameRef} error={Boolean(errors['name'])} helperText={errors['name']} sx={{ backgroundColor: "white", borderRadius: "8px", "& .MuiOutlinedInput-root": { borderRadius: "8px", "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "black" }, "&.Mui-focused fieldset": { borderColor: "black" } }, "& .MuiInputLabel-root": { color: "black" }, "& .MuiInputLabel-root.Mui-focused": { color: "black" } }} />
+                        <TextField fullWidth label="Email" type="email" variant="outlined" margin="normal" inputRef={emailRef} error={Boolean(errors['email'])} helperText={errors['email']} sx={{ backgroundColor: "white", borderRadius: "8px", "& .MuiOutlinedInput-root": { borderRadius: "8px", "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "black" }, "&.Mui-focused fieldset": { borderColor: "black" } }, "& .MuiInputLabel-root": { color: "black" }, "& .MuiInputLabel-root.Mui-focused": { color: "black" } }} />
+                        <TextField fullWidth label="Password" type="password" variant="outlined" margin="normal" inputRef={passswordRef} error={Boolean(errors['password'])} helperText={errors['password']} sx={{ backgroundColor: "white", borderRadius: "8px", "& .MuiOutlinedInput-root": { borderRadius: "8px", "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "black" }, "&.Mui-focused fieldset": { borderColor: "black" } }, "& .MuiInputLabel-root": { color: "black" }, "& .MuiInputLabel-root.Mui-focused": { color: "black" } }} />
                         <Button fullWidth variant="contained" color="primary" size="large" type="submit" endIcon={<SendIcon />} sx={{ backgroundColor: "black", color: "white", "&:hover": { backgroundColor: "black" }, mt: 2 }}>Send</Button>
 
                     </form>
