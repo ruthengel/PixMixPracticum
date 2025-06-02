@@ -36,12 +36,18 @@ const SignIn = () => {
             // });
             // console.log("Trying to login with:", { emailRef, passwordRef });
             // setErrors({});
-            console.log("Trying to login with111:", { emailRef, passwordRef });
+            console.log("Trying to login with111:", {
+                email: emailRef.current?.value,
+                password: passwordRef.current?.value
+            });
             const res = await axios.post(`${myUrl}/api/User/login`, {
                 email: emailRef.current?.value,
                 password: passwordRef.current?.value
             });
-            console.log("Trying to login with2222:", { emailRef, passwordRef });
+            console.log("Trying to login with2222:", {
+                email: emailRef.current?.value,
+                password: passwordRef.current?.value
+            });
 
             if (res.data?.token) {
                 dispatch(setToken(res.data.token))
@@ -51,7 +57,7 @@ const SignIn = () => {
                 alert("Login failed");
             }
         } catch (e) {
-            console.log(e);      
+            console.log(e);
             // if (e instanceof Yup.ValidationError) {
             //     const errorMap: { [key: string]: string } = {};
             //     e.inner.forEach((err) => {
@@ -79,8 +85,8 @@ const SignIn = () => {
                 <Box sx={{ width: 500, bgcolor: "background.paper", p: 3, borderRadius: 2, boxShadow: 24, margin: "auto", mt: 5 }}>
                     <IconButton sx={{ position: "absolute", color: "black" }} onClick={() => setOpen(false)}><CloseIcon /></IconButton>
                     <h2 id="login-modal-title" style={{ textAlign: "center", marginBottom: "1rem" }}>Hi! Let's Get Started</h2>
-                    <form onSubmit={handleSubmit}>                
-                        <TextField fullWidth label="Email" type="email" variant="outlined" margin="normal"  inputRef={emailRef} required sx={{ backgroundColor: "white", borderRadius: "8px", "& .MuiOutlinedInput-root": { borderRadius: "8px", "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "black" }, "&.Mui-focused fieldset": { borderColor: "black" } }, "& .MuiInputLabel-root": { color: "black" }, "& .MuiInputLabel-root.Mui-focused": { color: "black" } }} />
+                    <form onSubmit={handleSubmit}>
+                        <TextField fullWidth label="Email" type="email" variant="outlined" margin="normal" inputRef={emailRef} required sx={{ backgroundColor: "white", borderRadius: "8px", "& .MuiOutlinedInput-root": { borderRadius: "8px", "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "black" }, "&.Mui-focused fieldset": { borderColor: "black" } }, "& .MuiInputLabel-root": { color: "black" }, "& .MuiInputLabel-root.Mui-focused": { color: "black" } }} />
                         <TextField fullWidth label="Password" type="password" variant="outlined" margin="normal" inputRef={passwordRef} required sx={{ backgroundColor: "white", borderRadius: "8px", "& .MuiOutlinedInput-root": { borderRadius: "8px", "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "black" }, "&.Mui-focused fieldset": { borderColor: "black" } }, "& .MuiInputLabel-root": { color: "black" }, "& .MuiInputLabel-root.Mui-focused": { color: "black" } }} />
                         {/* <TextField fullWidth label="Email" type="email" variant="outlined" margin="normal"  inputRef={emailRef}  error={Boolean(errors['email'])} helperText={errors['email']} sx={{ backgroundColor: "white", borderRadius: "8px", "& .MuiOutlinedInput-root": { borderRadius: "8px", "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "black" }, "&.Mui-focused fieldset": { borderColor: "black" } }, "& .MuiInputLabel-root": { color: "black" }, "& .MuiInputLabel-root.Mui-focused": { color: "black" } }} /> */}
                         {/* <TextField fullWidth label="Password" type="password" variant="outlined" margin="normal"  inputRef={passwordRef} error={Boolean(errors['password'])} helperText={errors['password']} sx={{ backgroundColor: "white", borderRadius: "8px", "& .MuiOutlinedInput-root": { borderRadius: "8px", "& fieldset": { borderColor: "black" }, "&:hover fieldset": { borderColor: "black" }, "&.Mui-focused fieldset": { borderColor: "black" } }, "& .MuiInputLabel-root": { color: "black" }, "& .MuiInputLabel-root.Mui-focused": { color: "black" } }} /> */}
