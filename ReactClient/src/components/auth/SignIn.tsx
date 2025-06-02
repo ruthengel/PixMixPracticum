@@ -36,10 +36,13 @@ const SignIn = () => {
             // });
             // console.log("Trying to login with:", { emailRef, passwordRef });
             // setErrors({});
+            console.log("Trying to login with111:", { emailRef, passwordRef });
             const res = await axios.post(`${myUrl}/api/User/login`, {
                 email: emailRef.current?.value,
                 password: passwordRef.current?.value
             });
+            console.log("Trying to login with2222:", { emailRef, passwordRef });
+
             if (res.data?.token) {
                 dispatch(setToken(res.data.token))
                 console.log(userId);
